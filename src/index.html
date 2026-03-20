@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LLM 女性共学小组 · 第一期</title>
 <link rel="stylesheet" href="/style.css">
+<script>
+  (function(){
+    var t=localStorage.getItem('theme');
+    if(!t)t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'warm';
+    document.documentElement.setAttribute('data-theme',t);
+    try{var c=JSON.parse(localStorage.getItem('theme-tokens'));
+    if(c){var s=document.documentElement.style;for(var k in c)s.setProperty('--'+k,c[k])}}catch(e){}
+  })();
+</script>
 <script type="module" src="/main.js"></script>
 </head>
 <body>
@@ -14,6 +23,7 @@
   <span>共学小组 · Season 01</span>
   <span class="tag">NOW OPEN</span>
   <span>2026 · Online</span>
+  <button class="theme-toggle" aria-label="切换主题"></button>
 </div>
 
 <!-- Hero -->

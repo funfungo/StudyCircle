@@ -1,0 +1,140 @@
+/* ================================================
+ * Design Tokens — StudyCircle 设计系统
+ *
+ * 所有视觉决策的单一来源。
+ * 组件样式仅通过 var(--token) 引用这些令牌，
+ * 不允许出现硬编码的颜色、字号或间距值。
+ * ================================================ */
+
+:root {
+
+  /* ── Colors: Primitives ─────────────────────── */
+  --color-ink:          #0f0e0c;
+  --color-paper:        #f5f0e8;
+  --color-accent:       #c8420a;
+  --color-gold:         #d4a843;
+  --color-muted:        #7a7060;
+  --color-body:         #3a3630;
+  --color-body-light:   #4a4540;
+
+  /* ── Colors: Opacity Variants ───────────────── */
+  --color-line:           rgba(15, 14, 12, 0.15);
+  --color-ink-ghost:      rgba(15, 14, 12, 0.08);
+  --color-accent-tint:    rgba(200, 66, 10, 0.04);
+  --color-paper-dim:      rgba(245, 240, 232, 0.15);
+  --color-paper-muted:    rgba(245, 240, 232, 0.4);
+  --color-paper-soft:     rgba(245, 240, 232, 0.7);
+
+  /* ── Colors: Chrome Surfaces ────────────────── */
+  /* "Chrome" = 始终深色的区域：顶栏、页脚、书脊、Perks */
+  --color-canvas:         #0f0e0c;
+  --color-chrome:         #0f0e0c;
+  --color-on-chrome:      #f5f0e8;
+  --color-chrome-muted:   rgba(245, 240, 232, 0.4);
+  --color-chrome-soft:    rgba(245, 240, 232, 0.7);
+  --color-chrome-dim:     rgba(245, 240, 232, 0.15);
+  --color-shadow:         #0f0e0c;
+
+  /* ── Grain Overlay ──────────────────────────── */
+  --grain-opacity:        0.6;
+
+  /* ── Typography: Font Stacks ────────────────── */
+  --font-sans:   'Noto Sans SC Variable', 'Noto Sans SC', sans-serif;
+  --font-serif:  'Noto Serif SC Variable', 'Noto Serif SC', serif;
+  --font-mono:   'Space Mono', monospace;
+
+  /* ── Typography: Font Sizes ─────────────────── */
+  --text-2xs:      9px;
+  --text-xs:       10px;
+  --text-sm:       11px;
+  --text-base:     12px;
+  --text-md:       13px;
+  --text-lg:       14px;
+  --text-xl:       15px;
+  --text-2xl:      16px;
+  --text-3xl:      18px;
+  --text-4xl:      20px;
+  --text-5xl:      22px;
+  --text-6xl:      26px;
+  --text-7xl:      28px;
+  --text-8xl:      38px;
+  --text-display:  clamp(42px, 7vw, 68px);
+  --text-display-mobile: 38px;
+  --text-watermark: 160px;
+  --text-watermark-mobile: 80px;
+
+  /* ── Typography: Font Weights ───────────────── */
+  --weight-normal:    400;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-black:     900;
+
+  /* ── Typography: Line Heights ───────────────── */
+  --leading-none:     1;
+  --leading-tight:    1.05;
+  --leading-snug:     1.4;
+  --leading-normal:   1.5;
+  --leading-relaxed:  1.7;
+  --leading-loose:    1.85;
+  --leading-extra:    1.9;
+
+  /* ── Typography: Letter Spacings ────────────── */
+  --tracking-tight:   -0.02em;
+  --tracking-sm:      0.05em;
+  --tracking-md:      0.15em;
+  --tracking-lg:      0.2em;
+  --tracking-xl:      0.25em;
+  --tracking-2xl:     0.3em;
+
+  /* ── Spacing (4px base grid) ────────────────── */
+  --space-px:    1px;
+  --space-0-5:   2px;
+  --space-1:     4px;
+  --space-1-5:   6px;
+  --space-2:     8px;
+  --space-2-5:   10px;
+  --space-3:     12px;
+  --space-3-5:   14px;
+  --space-4:     16px;
+  --space-4-5:   18px;
+  --space-5:     20px;
+  --space-6:     24px;
+  --space-7:     28px;
+  --space-8:     32px;
+  --space-9:     36px;
+  --space-10:    40px;
+  --space-12:    48px;
+  --space-13:    50px;
+  --space-14:    56px;
+  --space-15:    60px;
+
+  /* ── Borders ────────────────────────────────── */
+  --border-section:    2px solid var(--color-ink);
+  --border-divider:    1px solid var(--color-line);
+  --border-grid:       1px solid var(--color-ink);
+  --border-dark-dim:   1px solid var(--color-chrome-dim);
+  --border-accent:     3px solid var(--color-accent);
+
+  /* ── Shadows ────────────────────────────────── */
+  --shadow-btn-hover:  4px 4px 0 var(--color-shadow);
+
+  /* ── Transitions ────────────────────────────── */
+  --ease-fast:     0.15s ease;
+  --ease-default:  0.2s ease;
+  --ease-anim:     0.6s ease both;
+
+  /* ── Layout ─────────────────────────────────── */
+  --content-max-width:          780px;
+  --section-padding-x:          var(--space-10);
+  --section-padding-x-mobile:   var(--space-6);
+
+  /* ── Z-Index ────────────────────────────────── */
+  --z-grain:  100;
+  --z-toggle: 200;
+}
+
+/* ================================================
+ * 主题配色由 themes.json 配置，JS 动态注入。
+ * :root 中的颜色为 warm 默认值 / CSS 回退。
+ * 新增或修改主题只需编辑 themes.json。
+ * ================================================ */

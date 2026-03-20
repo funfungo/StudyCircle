@@ -1,0 +1,92 @@
+{
+  "defaultTheme": "warm",
+  "themes": {
+    "warm": {
+      "name": "暖纸",
+      "tokens": {
+        "color-ink":          "#0f0e0c",
+        "color-paper":        "#f5f0e8",
+        "color-accent":       "#c8420a",
+        "color-gold":         "#d4a843",
+        "color-muted":        "#7a7060",
+        "color-body":         "#3a3630",
+        "color-body-light":   "#4a4540",
+
+        "color-line":         "rgba(15, 14, 12, 0.15)",
+        "color-ink-ghost":    "rgba(15, 14, 12, 0.08)",
+        "color-accent-tint":  "rgba(200, 66, 10, 0.04)",
+        "color-paper-dim":    "rgba(245, 240, 232, 0.15)",
+        "color-paper-muted":  "rgba(245, 240, 232, 0.4)",
+        "color-paper-soft":   "rgba(245, 240, 232, 0.7)",
+
+        "color-canvas":       "#0f0e0c",
+        "color-chrome":       "#0f0e0c",
+        "color-on-chrome":    "#f5f0e8",
+        "color-chrome-muted": "rgba(245, 240, 232, 0.4)",
+        "color-chrome-soft":  "rgba(245, 240, 232, 0.7)",
+        "color-chrome-dim":   "rgba(245, 240, 232, 0.15)",
+        "color-shadow":       "#0f0e0c",
+
+        "grain-opacity":      "0.6"
+      }
+    },
+    "dark": {
+      "name": "夜读",
+      "tokens": {
+        "color-ink":          "#e0dcd4",
+        "color-paper":        "#1a1816",
+        "color-accent":       "#e8632e",
+        "color-gold":         "#e8be4a",
+        "color-muted":        "#8a8070",
+        "color-body":         "#c0bab0",
+        "color-body-light":   "#a8a298",
+
+        "color-line":         "rgba(224, 220, 212, 0.12)",
+        "color-ink-ghost":    "rgba(224, 220, 212, 0.06)",
+        "color-accent-tint":  "rgba(232, 99, 46, 0.08)",
+        "color-paper-dim":    "rgba(224, 220, 212, 0.12)",
+        "color-paper-muted":  "rgba(224, 220, 212, 0.3)",
+        "color-paper-soft":   "rgba(224, 220, 212, 0.6)",
+
+        "color-canvas":       "#100e0c",
+        "color-chrome":       "#141210",
+        "color-on-chrome":    "#c8c0b4",
+        "color-chrome-muted": "rgba(200, 192, 180, 0.5)",
+        "color-chrome-soft":  "rgba(200, 192, 180, 0.65)",
+        "color-chrome-dim":   "rgba(200, 192, 180, 0.12)",
+        "color-shadow":       "#000000",
+
+        "grain-opacity":      "0.3"
+      }
+    },
+    "ocean": {
+      "name": "静蓝",
+      "tokens": {
+        "color-ink":          "#1e293b",
+        "color-paper":        "#f0f4f8",
+        "color-accent":       "#2563eb",
+        "color-gold":         "#0d9488",
+        "color-muted":        "#64748b",
+        "color-body":         "#334155",
+        "color-body-light":   "#475569",
+
+        "color-line":         "rgba(30, 41, 59, 0.12)",
+        "color-ink-ghost":    "rgba(30, 41, 59, 0.06)",
+        "color-accent-tint":  "rgba(37, 99, 235, 0.04)",
+        "color-paper-dim":    "rgba(240, 244, 248, 0.15)",
+        "color-paper-muted":  "rgba(240, 244, 248, 0.4)",
+        "color-paper-soft":   "rgba(240, 244, 248, 0.7)",
+
+        "color-canvas":       "#0f172a",
+        "color-chrome":       "#0f172a",
+        "color-on-chrome":    "#cbd5e1",
+        "color-chrome-muted": "rgba(148, 163, 184, 0.5)",
+        "color-chrome-soft":  "rgba(148, 163, 184, 0.7)",
+        "color-chrome-dim":   "rgba(148, 163, 184, 0.15)",
+        "color-shadow":       "#0f172a",
+
+        "grain-opacity":      "0.4"
+      }
+    }
+  }
+}
