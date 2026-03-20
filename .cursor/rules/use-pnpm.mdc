@@ -1,0 +1,23 @@
+---
+description: Use pnpm as the package manager instead of npm or yarn
+alwaysApply: true
+---
+
+# Package Manager: pnpm
+
+Always use `pnpm` for dependency management.
+
+```bash
+# ✅ GOOD
+pnpm install
+pnpm add <package>
+pnpm add -D <package>
+pnpm remove <package>
+
+# ❌ BAD
+npm install
+yarn add <package>
+```
+
+- Run scripts with `pnpm run <script>` or `pnpm <script>`
+- Lock file is `pnpm-lock.yaml`, never commit `package-lock.json` or `yarn.lock`
