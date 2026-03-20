@@ -1,0 +1,52 @@
+---
+description: Save a summary of each conversation to chat_history/ when the session ends or the user requests it
+alwaysApply: true
+---
+
+# Chat History 保存规则
+
+每次对话结束时，将对话内容总结为一个 Markdown 文件保存到 `chat_history/` 目录。
+
+## 文件命名
+
+格式：`YYYY-MM-DD_HHmm-标题.md`
+
+- 时间取对话开始时间
+- 标题用简短中文概括对话主题
+
+```
+# ✅ GOOD
+2026-03-20_1137-抽离设计系统.md
+2026-03-21_0930-修复移动端布局.md
+
+# ❌ BAD
+01-抽离设计系统.md
+chat-2026-03-20.md
+```
+
+## 文件内容结构
+
+```markdown
+# 标题
+
+- **时间**: YYYY-MM-DD HH:mm
+- **对话 ID**: `uuid`
+
+## 需求
+
+简述用户的原始需求。
+
+## 过程
+
+关键步骤、遇到的问题和解决方案。
+
+## 产出
+
+产生了哪些文件或变更。
+```
+
+## 注意事项
+
+- 只记录有实际代码变更的对话，纯问答类对话不需要保存
+- 内容要精炼，突出关键决策和经验，不要流水账
+- 如果一次对话涵盖多个不相关的主题，拆分为多个文件
