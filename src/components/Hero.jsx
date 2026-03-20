@@ -1,14 +1,26 @@
-export function Hero() {
+import s from './Hero.module.css'
+
+export function Hero({ data }) {
+  const lines = data.subtitle.split('\n')
+
   return (
-    <div className="hero">
-      <div className="eyebrow">招募令</div>
-      <h1>从零构建<br /><em>大语言模型</em></h1>
-      <p className="subtitle">
-        一本书、四周时间、一群认真的人——<br />
-        一起读懂 LLM 背后真正发生的事。1
+    <div className={`hero ${s.root}`}>
+      <div className={s.eyebrow}>{data.eyebrow}</div>
+      <h1 className={s.heading}>
+        {data.heading[0]}
+        <br />
+        <em>{data.heading[1]}</em>
+      </h1>
+      <p className={s.subtitle}>
+        {lines.map((line, i) => (
+          <span key={i}>
+            {line}
+            {i < lines.length - 1 && <br />}
+          </span>
+        ))}
       </p>
-      <div className="hero-image">
-        <div role="img" aria-label="女性AI共学小组" className="theme-logo" />
+      <div className={s.image}>
+        <div role="img" aria-label={data.logoAlt} className={s.logo} />
       </div>
     </div>
   )

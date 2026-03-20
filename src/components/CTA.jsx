@@ -1,17 +1,35 @@
-export function CTA() {
+import s from './CTA.module.css'
+
+export function CTA({ data }) {
+  const textParts = data.text
+  const highlight = data.highlight
+
   return (
-    <div className="cta-section">
+    <div className={`cta-section ${s.root}`}>
       <div>
-        <div className="cta-text">
-          想一起读的，<br />
-          来<em>报个名</em>吧。
+        <div className={s.text}>
+          {textParts.map((part, i) => {
+            const highlighted = highlight && part.includes(highlight)
+              ? part.split(highlight).reduce((acc, seg, j, arr) => {
+                  acc.push(seg)
+                  if (j < arr.length - 1) acc.push(<em key={j}>{highlight}</em>)
+                  return acc
+                }, [])
+              : part
+            return (
+              <span key={i}>
+                {highlighted}
+                {i < textParts.length - 1 && <br />}
+              </span>
+            )
+          })}
         </div>
-        <div className="cta-meta">
-          · 人数不设上限，但越早越好 · 有 Python 基础即可 ·
-        </div>
+        <div className={s.meta}>{data.meta}</div>
       </div>
       <div>
-        <button className="cta-btn">加入我们 →</button>
+        <button className={s.btn} onClick={data.onButtonClick}>
+          {data.buttonText}
+        </button>
       </div>
     </div>
   )

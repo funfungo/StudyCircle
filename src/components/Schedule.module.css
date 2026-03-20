@@ -1,0 +1,90 @@
+.root {
+  padding: var(--section-padding-x);
+  border-bottom: var(--border-section);
+}
+
+.sectionLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-2xl);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: var(--space-6);
+  border: var(--border-grid);
+}
+
+.item {
+  padding: var(--space-5) var(--space-4-5);
+  border-right: var(--border-grid);
+  position: relative;
+  transition: background var(--ease-default);
+  border-bottom: var(--border-grid);
+}
+
+.item:nth-child(4n) { border-right: none; }
+.item:nth-last-child(-n+4) { border-bottom: none; }
+.item:hover { background: var(--color-accent-tint); }
+
+.num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-lg);
+  color: var(--color-accent);
+  margin-bottom: var(--space-2-5);
+  text-transform: uppercase;
+}
+
+.topic {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-normal);
+  margin-bottom: var(--space-2);
+}
+
+.chapters {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+}
+
+.dot {
+  width: var(--space-1-5);
+  height: var(--space-1-5);
+  background: var(--color-accent);
+  border-radius: 50%;
+  position: absolute;
+  top: var(--space-4-5);
+  right: var(--space-4);
+  opacity: 0;
+  transition: opacity var(--ease-default);
+}
+
+.item:hover .dot { opacity: 1; }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .item:nth-child(4n) { border-right: var(--border-grid); }
+  .item:nth-child(2n) { border-right: none; }
+  .item:nth-last-child(-n+4) { border-bottom: var(--border-grid); }
+  .item:nth-last-child(-n+2) { border-bottom: none; }
+}
+
+@media (max-width: 600px) {
+  .root { padding: var(--section-padding-x-mobile); }
+  .grid { grid-template-columns: 1fr; }
+  .item,
+  .item:nth-child(4n),
+  .item:nth-last-child(-n+4) {
+    border-right: none;
+    border-bottom: var(--border-grid);
+  }
+  .item:last-child { border-bottom: none; }
+}

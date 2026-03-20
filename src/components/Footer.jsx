@@ -1,8 +1,10 @@
-export function Footer() {
+import s from './Footer.module.css'
+
+export function Footer({ data }) {
   return (
-    <div className="footer">
-      <span className="footer-logo">LLM 共学 · S01</span>
-      <span>Build a Large Language Model · From Scratch</span>
+    <div className={s.root}>
+      <span className={s.logo}>{data.logo}</span>
+      <span>{data.text}</span>
     </div>
   )
 }

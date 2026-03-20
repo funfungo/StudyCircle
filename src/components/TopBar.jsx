@@ -1,11 +1,13 @@
-export function TopBar({ onToggleTheme }) {
+import s from './TopBar.module.css'
+
+export function TopBar({ data, onToggleTheme }) {
   return (
-    <div className="top-bar">
-      <span>女性AI共学小组 · Season 01</span>
-      <span className="tag">NOW OPEN</span>
-      <span>2026 · Online</span>
+    <div className={s.root}>
+      <span>{data.title}</span>
+      <span className={s.tag}>{data.tag}</span>
+      <span>{data.meta}</span>
       <button
-        className="theme-toggle"
+        className={s.toggle}
         aria-label="切换主题"
         onClick={onToggleTheme}
       />
