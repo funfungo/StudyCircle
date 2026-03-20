@@ -40,6 +40,12 @@ body::before {
   text-transform: uppercase;
 }
 
+.top-bar-logo {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+}
+
 .top-bar .tag {
   background: var(--color-accent);
   color: white;
@@ -114,6 +120,24 @@ h1 em {
   margin-top: var(--space-4);
   line-height: var(--leading-relaxed);
   max-width: 480px;
+}
+
+.theme-logo {
+  width: 300px;
+  aspect-ratio: 1;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: var(--color-ink);
+  -webkit-mask-image: url('/logo.svg');
+  mask-image: url('/logo.svg');
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  transition: background var(--ease-default);
 }
 
 /* ── Stats Strip ──────────────────────────────── */
@@ -442,16 +466,26 @@ h1 em {
 
 .hero, .stats-strip, .book-section, .schedule-section,
 .format-section, .perks-section, .cta-section {
+  opacity: 0;
+}
+
+.app-ready .hero,
+.app-ready .stats-strip,
+.app-ready .book-section,
+.app-ready .schedule-section,
+.app-ready .format-section,
+.app-ready .perks-section,
+.app-ready .cta-section {
   animation: var(--ease-anim);
   animation-name: fadeUp;
 }
 
-.stats-strip    { animation-delay: 0.1s; }
-.book-section   { animation-delay: 0.18s; }
-.schedule-section { animation-delay: 0.24s; }
-.format-section { animation-delay: 0.3s; }
-.perks-section  { animation-delay: 0.36s; }
-.cta-section    { animation-delay: 0.42s; }
+.app-ready .stats-strip      { animation-delay: 0.1s; }
+.app-ready .book-section     { animation-delay: 0.18s; }
+.app-ready .schedule-section { animation-delay: 0.24s; }
+.app-ready .format-section   { animation-delay: 0.3s; }
+.app-ready .perks-section    { animation-delay: 0.36s; }
+.app-ready .cta-section      { animation-delay: 0.42s; }
 
 /* ── Theme Toggle ─────────────────────────────── */
 
@@ -491,25 +525,186 @@ h1 em {
               box-shadow 0.4s ease !important;
 }
 
-/* ── Responsive ───────────────────────────────── */
+/* ── Responsive: Tablet ──────────────────────────── */
+
+@media (max-width: 768px) {
+  .week-grid { grid-template-columns: repeat(2, 1fr); }
+  .perks-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .cta-section {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .cta-text { font-size: var(--text-5xl); }
+
+  .theme-logo {
+    width: 200px;
+    bottom: 5px;
+    right: 5px;
+  }
+
+  .hero::after { font-size: 120px; }
+}
+
+/* ── Responsive: Mobile ──────────────────────────── */
 
 @media (max-width: 600px) {
-  .stats-strip,
-  .week-grid,
-  .perks-grid { grid-template-columns: 1fr 1fr; }
 
-  .format-section,
-  .cta-section { grid-template-columns: 1fr; }
+  /* -- Top Bar -- */
+  .top-bar {
+    padding: var(--space-2) var(--section-padding-x-mobile);
+    flex-wrap: wrap;
+    gap: var(--space-1-5) var(--space-2);
+    font-size: var(--text-2xs);
+    justify-content: flex-start;
+  }
 
-  .book-section { grid-template-columns: 1fr; }
-  .book-spine   { display: none; }
+  .top-bar .tag {
+    font-size: 8px;
+    padding: 2px var(--space-1-5);
+    order: 3;
+  }
+
+  .theme-toggle {
+    margin-left: auto;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* -- Hero -- */
+  .hero {
+    padding: var(--space-8) var(--section-padding-x-mobile) var(--section-padding-x-mobile);
+  }
 
   .hero::after { font-size: var(--text-watermark-mobile); }
-  h1           { font-size: var(--text-display-mobile); }
 
-  .top-bar, .hero, .book-content, .schedule-section,
-  .format-block, .perks-section, .cta-section {
-    padding-left: var(--section-padding-x-mobile);
-    padding-right: var(--section-padding-x-mobile);
+  h1 { font-size: var(--text-display-mobile); }
+
+  .subtitle {
+    font-size: var(--text-lg);
+    max-width: 100%;
   }
+  .hero-image {
+    margin-top: -70px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .theme-logo {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    width: 100%;
+    max-width: 280px;
+    margin-top: var(--space-6);
+  }
+
+  /* -- Stats -- */
+  .stats-strip { grid-template-columns: 1fr 1fr; }
+
+  .stat {
+    padding: var(--space-5) var(--section-padding-x-mobile);
+  }
+
+  .stat:nth-child(2) { border-right: none; }
+
+  .stat:last-child {
+    grid-column: 1 / -1;
+    border-right: none;
+    border-top: var(--border-divider);
+  }
+
+  .stat-num { font-size: var(--text-6xl); }
+  .stat-num span { font-size: var(--text-3xl); }
+
+  /* -- Book -- */
+  .book-section { grid-template-columns: 1fr; }
+  .book-spine { display: none; }
+
+  .book-content {
+    padding: var(--section-padding-x-mobile);
+    border-left: none;
+  }
+
+  .book-title { font-size: var(--text-4xl); }
+
+  .book-desc { font-size: var(--text-md); }
+
+  /* -- Schedule -- */
+  .schedule-section {
+    padding: var(--section-padding-x-mobile);
+  }
+
+  .week-grid { grid-template-columns: 1fr; }
+
+  .week-item {
+    border-right: none;
+    border-bottom: var(--border-grid);
+  }
+
+  .week-item:last-child { border-bottom: none; }
+
+  /* -- Format -- */
+  .format-section { grid-template-columns: 1fr; }
+
+  .format-block {
+    padding: var(--space-6) var(--section-padding-x-mobile);
+    border-right: none;
+    border-bottom: var(--border-divider);
+  }
+
+  .format-block:last-child { border-bottom: none; }
+
+  .format-icon { font-size: var(--text-5xl); }
+
+  /* -- Perks -- */
+  .perks-section {
+    padding: var(--section-padding-x-mobile);
+  }
+
+  .perks-grid { grid-template-columns: 1fr; }
+
+  .perk {
+    padding: var(--space-4) var(--space-4);
+  }
+
+  /* -- CTA -- */
+  .cta-section {
+    padding: var(--space-9) var(--section-padding-x-mobile);
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    text-align: center;
+  }
+
+  .cta-text {
+    font-size: var(--text-4xl);
+  }
+
+  .cta-meta {
+    font-size: var(--text-sm);
+  }
+
+  .cta-btn {
+    width: 100%;
+    text-align: center;
+    padding: var(--space-3-5) var(--space-6);
+    font-size: var(--text-sm);
+  }
+
+  /* -- Footer -- */
+  .footer {
+    padding: var(--space-4) var(--section-padding-x-mobile);
+    flex-direction: column;
+    gap: var(--space-2);
+    text-align: center;
+  }
+}
+
+/* ── Responsive: Small Mobile ────────────────────── */
+
+@media (max-width: 380px) {
+  h1 { font-size: 30px; }
+  .hero::after { font-size: 60px; }
+  .stat-num { font-size: var(--text-5xl); }
+  .cta-text { font-size: var(--text-3xl); }
 }

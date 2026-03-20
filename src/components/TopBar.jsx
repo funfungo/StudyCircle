@@ -1,7 +1,7 @@
 export function TopBar({ onToggleTheme }) {
   return (
     <div className="top-bar">
-      <span>共学小组 · Season 01</span>
+      <span>女性AI共学小组 · Season 01</span>
       <span className="tag">NOW OPEN</span>
       <span>2026 · Online</span>
       <button

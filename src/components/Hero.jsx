@@ -7,6 +7,9 @@ export function Hero() {
         一本书、四周时间、一群认真的人——<br />
         一起读懂 LLM 背后真正发生的事。
       </p>
+      <div className="hero-image">
+        <div role="img" aria-label="女性AI共学小组" className="theme-logo" />
+      </div>
     </div>
   )
 }

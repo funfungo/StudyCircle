@@ -15,6 +15,43 @@
 </script>
 </head>
 <body>
+<div id="loading-screen" aria-hidden="true">
+  <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+</div>
+<style>
+  #loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-paper, #f5f0e8);
+    transition: opacity 0.5s cubic-bezier(.4,0,.2,1), visibility 0s 0.5s;
+  }
+  #loading-screen.loaded {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .loading-bar {
+    width: 120px;
+    height: 2px;
+    background: var(--color-line, rgba(15,14,12,0.15));
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .loading-bar-fill {
+    width: 40%;
+    height: 100%;
+    background: var(--color-accent, #c8420a);
+    border-radius: 1px;
+    animation: loadingSweep 1.2s cubic-bezier(.4,0,.2,1) infinite;
+  }
+  @keyframes loadingSweep {
+    0%   { transform: translateX(-120px); }
+    100% { transform: translateX(300px); }
+  }
+</style>
 <div id="root"></div>
 <script type="module" src="/main.jsx"></script>
 </body>
