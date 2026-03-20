@@ -5,7 +5,7 @@ export function Hero() {
       <h1>从零构建<br /><em>大语言模型</em></h1>
       <p className="subtitle">
         一本书、四周时间、一群认真的人——<br />
-        一起读懂 LLM 背后真正发生的事。
+        一起读懂 LLM 背后真正发生的事。1
       </p>
       <div className="hero-image">
         <div role="img" aria-label="女性AI共学小组" className="theme-logo" />
