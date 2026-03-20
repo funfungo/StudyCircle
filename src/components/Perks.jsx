@@ -1,14 +1,14 @@
-import s from './Perks.module.css'
+import './Perks.css'
 
 export function Perks({ data }) {
   return (
-    <div className={`perks-section ${s.root}`}>
-      <div className={s.sectionLabel}>{data.sectionLabel}</div>
-      <div className={s.grid}>
+    <div className="perks-section">
+      <div className="section-label">{data.sectionLabel}</div>
+      <div className="perks-grid">
         {data.items.map((p) => (
-          <div className={s.perk} key={p.title}>
-            <div className={s.perkTitle}>{p.title}</div>
-            <div className={s.perkDesc}>{p.desc}</div>
+          <div className="perk" key={p.title}>
+            <div className="perk-title">{p.title}</div>
+            <div className="perk-desc">{p.desc}</div>
           </div>
         ))}
       </div>

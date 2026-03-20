@@ -1,17 +1,21 @@
-import s from './Hero.module.css'
+import './Hero.css'
 
 export function Hero({ data }) {
   const lines = data.subtitle.split('\n')
 
   return (
-    <div className={`hero ${s.root}`}>
-      <div className={s.eyebrow}>{data.eyebrow}</div>
-      <h1 className={s.heading}>
+    <div className="hero">
+      <div className="eyebrow">
+        {data.openingTime && (
+          <span className="opening-time">{data.openingTime}</span>
+        )}
+      </div>
+      <h1>
         {data.heading[0]}
         <br />
         <em>{data.heading[1]}</em>
       </h1>
-      <p className={s.subtitle}>
+      <p className="subtitle">
         {lines.map((line, i) => (
           <span key={i}>
             {line}
@@ -19,8 +23,8 @@ export function Hero({ data }) {
           </span>
         ))}
       </p>
-      <div className={s.image}>
-        <div role="img" aria-label={data.logoAlt} className={s.logo} />
+      <div className="hero-image">
+        <div role="img" aria-label={data.logoAlt} className="theme-logo" />
       </div>
     </div>
   )

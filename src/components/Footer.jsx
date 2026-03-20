@@ -1,9 +1,9 @@
-import s from './Footer.module.css'
+import './Footer.css'
 
 export function Footer({ data }) {
   return (
-    <div className={s.root}>
-      <span className={s.logo}>{data.logo}</span>
+    <div className="footer">
+      <span className="footer-logo">{data.logo}</span>
       <span>{data.text}</span>
     </div>
   )

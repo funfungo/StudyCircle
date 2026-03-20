@@ -2,9 +2,12 @@
 
 /**
  * 用法:
- *   pnpm screenshot              # 默认主题
+ *   pnpm screenshot              # 默认主题 (桌面端)
  *   pnpm screenshot dark          # 指定主题 (warm / dark / ocean)
- *   pnpm screenshot --all         # 导出所有主题
+ *   pnpm screenshot --all         # 导出所有主题 (桌面端)
+ *   pnpm screenshot:mobile        # 默认主题 (移动端)
+ *   pnpm screenshot:mobile dark   # 指定主题 (移动端)
+ *   pnpm screenshot:mobile --all  # 导出所有主题 (移动端)
  */
 
 import { chromium } from 'playwright'
@@ -20,7 +23,13 @@ const themesConfig = JSON.parse(
   readFileSync(resolve(root, 'src/themes.json'), 'utf-8'),
 )
 const THEME_IDS = Object.keys(themesConfig.themes)
+
+const isMobile = process.env.SCREENSHOT_MOBILE === '1'
 const arg = process.argv[2]
+
+const VIEWPORT = isMobile
+  ? { width: 414, height: 896, deviceScaleFactor: 3 }
+  : { width: 780, height: 600, deviceScaleFactor: 2 }
 
 const server = await createServer({
   configFile: resolve(root, 'vite.config.js'),
@@ -38,8 +47,8 @@ async function capture(themeId) {
   const tokens = themesConfig.themes[id].tokens
 
   const page = await browser.newPage({
-    viewport: { width: 780, height: 600 },
-    deviceScaleFactor: 2,
+    viewport: { width: VIEWPORT.width, height: VIEWPORT.height },
+    deviceScaleFactor: VIEWPORT.deviceScaleFactor,
   })
 
   await page.addInitScript(
@@ -59,7 +68,8 @@ async function capture(themeId) {
   await page.waitForTimeout(800)
 
   const date = new Date().toISOString().slice(0, 10)
-  const filename = resolve(root, `LLM共学小组-${id}-${date}.png`)
+  const suffix = isMobile ? '-mobile' : ''
+  const filename = resolve(root, `LLM共学小组-${id}${suffix}-${date}.png`)
 
   await page.screenshot({ path: filename, fullPage: true })
   await page.close()

@@ -1,13 +1,13 @@
-import s from './CTA.module.css'
+import './CTA.css'
 
 export function CTA({ data }) {
   const textParts = data.text
   const highlight = data.highlight
 
   return (
-    <div className={`cta-section ${s.root}`}>
+    <div className="cta-section">
       <div>
-        <div className={s.text}>
+        <div className="cta-text">
           {textParts.map((part, i) => {
             const highlighted = highlight && part.includes(highlight)
               ? part.split(highlight).reduce((acc, seg, j, arr) => {
@@ -24,10 +24,10 @@ export function CTA({ data }) {
             )
           })}
         </div>
-        <div className={s.meta}>{data.meta}</div>
+        <div className="cta-meta">{data.meta}</div>
       </div>
       <div>
-        <button className={s.btn} onClick={data.onButtonClick}>
+        <button className="cta-btn" onClick={data.onButtonClick}>
           {data.buttonText}
         </button>
       </div>

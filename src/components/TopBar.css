@@ -1,4 +1,4 @@
-.root {
+.top-bar {
   background: var(--color-chrome);
   color: var(--color-on-chrome);
   padding: var(--space-2-5) var(--section-padding-x);
@@ -11,13 +11,13 @@
   text-transform: uppercase;
 }
 
-.logo {
+.top-bar-logo {
   height: 20px;
   width: auto;
   object-fit: contain;
 }
 
-.tag {
+.top-bar .tag {
   background: var(--color-accent);
   color: white;
   padding: 3px var(--space-2-5);
@@ -25,7 +25,7 @@
   letter-spacing: var(--tracking-lg);
 }
 
-.toggle {
+.theme-toggle {
   appearance: none;
   background: transparent;
   border: 1px solid currentColor;
@@ -39,9 +39,9 @@
   flex-shrink: 0;
 }
 
-.toggle:hover { opacity: 1; }
+.theme-toggle:hover { opacity: 1; }
 
-.toggle::before {
+.theme-toggle::before {
   content: '';
   position: absolute;
   inset: 4px;
@@ -50,7 +50,7 @@
 }
 
 @media (max-width: 600px) {
-  .root {
+  .top-bar {
     padding: var(--space-2) var(--section-padding-x-mobile);
     flex-wrap: wrap;
     gap: var(--space-1-5) var(--space-2);
@@ -58,13 +58,13 @@
     justify-content: flex-start;
   }
 
-  .tag {
+  .top-bar .tag {
     font-size: 8px;
     padding: 2px var(--space-1-5);
     order: 3;
   }
 
-  .toggle {
+  .theme-toggle {
     margin-left: auto;
     width: 18px;
     height: 18px;

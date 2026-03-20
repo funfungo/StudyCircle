@@ -1,4 +1,4 @@
-.root {
+.footer {
   background: var(--color-chrome);
   color: var(--color-chrome-muted);
   padding: var(--space-5) var(--section-padding-x);
@@ -10,14 +10,14 @@
   letter-spacing: var(--tracking-md);
 }
 
-.logo {
+.footer-logo {
   color: var(--color-gold);
   font-size: var(--text-base);
   font-weight: var(--weight-bold);
 }
 
 @media (max-width: 600px) {
-  .root {
+  .footer {
     padding: var(--space-4) var(--section-padding-x-mobile);
     flex-direction: column;
     gap: var(--space-2);

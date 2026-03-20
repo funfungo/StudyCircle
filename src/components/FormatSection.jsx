@@ -1,13 +1,13 @@
-import s from './FormatSection.module.css'
+import './FormatSection.css'
 
 export function FormatSection({ data }) {
   return (
-    <div className={`format-section ${s.root}`}>
+    <div className="format-section">
       {data.map((f) => (
-        <div className={s.block} key={f.title}>
-          <span className={s.icon}>{f.icon}</span>
-          <div className={s.title}>{f.title}</div>
-          <div className={s.desc}>{f.desc}</div>
+        <div className="format-block" key={f.title}>
+          <span className="format-icon">{f.icon}</span>
+          <div className="format-title">{f.title}</div>
+          <div className="format-desc">{f.desc}</div>
         </div>
       ))}
     </div>
