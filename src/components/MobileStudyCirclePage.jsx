@@ -22,16 +22,13 @@ export function MobileStudyCirclePage({ data = {}, onToggleTheme }) {
 
         <div className="mp-hero">
           {d.hero.badge && (
-            <div className="mp-hero__badge">{d.hero.badge}</div>
+            <div className="mp-hero__badge">
+              <em>{d.hero.badge[0]}</em>{d.hero.badge[1]}
+            </div>
           )}
           <div className="mp-hero__eyebrow">
             <span className="mp-hero__time">{d.hero.openingTime}</span>
           </div>
-          <h1 className="mp-hero__heading">
-            {d.hero.heading[0]}
-            <br />
-            <em>{d.hero.heading[1]}</em>
-          </h1>
           <p className="mp-hero__subtitle">
             {d.hero.subtitle.split('\n').map((line, i, arr) => (
               <span key={i}>
@@ -62,6 +59,11 @@ export function MobileStudyCirclePage({ data = {}, onToggleTheme }) {
       <div className="mobile-page page-book">
         <div className="mp-book__header">
           <div className="mp-section-label">{d.book.sectionLabel}</div>
+          {d.book.heading && (
+            <h2 className="mp-book__heading">
+              {d.book.heading[0]} <em>{d.book.heading[1]}</em>
+            </h2>
+          )}
           <div className="mp-book__title">
             {d.book.title.split('\n').map((line, i, arr) => (
               <span key={i}>

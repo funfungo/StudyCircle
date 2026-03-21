@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { StudyCirclePage } from './components/StudyCirclePage'
 import { MobileStudyCirclePage } from './components/MobileStudyCirclePage'
+import { DevTools } from './dev/DevTools'
 import { useTheme } from './hooks/useTheme'
 
 function dismissLoading() {
@@ -29,17 +30,33 @@ function useViewMode() {
   return mode
 }
 
+const isInsideDevToolsIframe =
+  new URLSearchParams(window.location.search).has('_devtools')
+
 export function App() {
-  const { cycleTheme } = useTheme()
+  const { theme, themeKeys, themeNames, cycleTheme, switchTheme } = useTheme()
   const viewMode = useViewMode()
 
   useEffect(() => {
     document.fonts.ready.then(dismissLoading)
   }, [])
 
-  if (viewMode === 'mobile') {
-    return <MobileStudyCirclePage onToggleTheme={cycleTheme} />
-  }
+  const showDevTools = import.meta.env.DEV && !isInsideDevToolsIframe
 
-  return <StudyCirclePage onToggleTheme={cycleTheme} />
+  return (
+    <>
+      {viewMode === 'mobile'
+        ? <MobileStudyCirclePage onToggleTheme={cycleTheme} />
+        : <StudyCirclePage onToggleTheme={cycleTheme} />
+      }
+      {showDevTools && (
+        <DevTools
+          theme={theme}
+          themeKeys={themeKeys}
+          themeNames={themeNames}
+          onSwitchTheme={switchTheme}
+        />
+      )}
+    </>
+  )
 }

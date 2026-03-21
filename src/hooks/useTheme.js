@@ -23,14 +23,23 @@ function getInitialTheme() {
 }
 
 export function useTheme() {
-  const [theme, setTheme] = useState(getInitialTheme)
+  const [theme, _setTheme] = useState(getInitialTheme)
 
   useEffect(() => {
     applyThemeTokens(theme)
   }, [theme])
 
+  const switchTheme = useCallback((key) => {
+    if (!themes.themes[key]) return
+    document.documentElement.setAttribute('data-theme-transition', '')
+    setTimeout(() => {
+      document.documentElement.removeAttribute('data-theme-transition')
+    }, 500)
+    _setTheme(key)
+  }, [])
+
   const cycleTheme = useCallback(() => {
-    setTheme(prev => {
+    _setTheme(prev => {
       const idx = themeKeys.indexOf(prev)
       const next = themeKeys[(idx + 1) % themeKeys.length]
       document.documentElement.setAttribute('data-theme-transition', '')
@@ -41,5 +50,5 @@ export function useTheme() {
     })
   }, [])
 
-  return { theme, cycleTheme }
+  return { theme, themeKeys, themeNames: themes.themes, cycleTheme, switchTheme }
 }

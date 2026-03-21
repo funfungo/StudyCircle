@@ -35,10 +35,10 @@ const PAGE_W = 414
 const PAGE_H = 552
 
 const VIEWPORT = isPages
-  ? { width: PAGE_W, height: PAGE_H, deviceScaleFactor: 2 }
+  ? { width: PAGE_W, height: PAGE_H, deviceScaleFactor: 3 }
   : isMobile
     ? { width: 414, height: 896, deviceScaleFactor: 4 }
-    : { width: 780, height: 600, deviceScaleFactor: 2 }
+    : { width: 780, height: 600, deviceScaleFactor: 3 }
 
 const server = await createServer({
   configFile: resolve(root, 'vite.config.js'),
@@ -68,7 +68,7 @@ async function openPage(id, tokens, pageUrl) {
   await page.goto(pageUrl, { waitUntil: 'networkidle' })
 
   await page.addStyleTag({
-    content: '.export-btn, .theme-toggle, .mobile-swiper__dots, .mobile-swiper__counter { display: none !important; }',
+    content: '.export-btn, .theme-toggle, .mobile-swiper__dots, .mobile-swiper__counter, .devtools { display: none !important; }',
   })
 
   await page.waitForTimeout(800)

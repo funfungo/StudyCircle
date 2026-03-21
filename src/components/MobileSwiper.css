@@ -55,7 +55,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  border: 1px solid var(--color-chrome-muted);
+  border: 1px solid var(--color-muted);
   background: transparent;
   cursor: pointer;
   padding: 0;
@@ -79,3 +79,4 @@
   color: var(--color-chrome-muted);
   z-index: 50;
 }
+

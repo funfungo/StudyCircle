@@ -50,6 +50,20 @@
   user-select: none;
 }
 
+.book-heading {
+  font-family: var(--font-serif);
+  font-size: var(--text-display);
+  font-weight: var(--weight-black);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 var(--space-4);
+}
+
+.book-heading em {
+  font-style: normal;
+  color: var(--color-accent);
+}
+
 .book-section .section-label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -124,7 +138,6 @@
 
 .book-desc p {
   margin: 0;
-  text-indent: 2em;
 }
 
 .book-desc p:first-child {
@@ -146,6 +159,10 @@
 
   .book-header {
     padding: var(--space-6) var(--section-padding-x-mobile) var(--space-5);
+  }
+
+  .book-heading {
+    font-size: var(--text-display-mobile);
   }
 
   .book-header::after {

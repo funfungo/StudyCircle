@@ -58,8 +58,8 @@
   --text-6xl:      26px;
   --text-7xl:      28px;
   --text-8xl:      38px;
-  --text-display:  clamp(42px, 7vw, 68px);
-  --text-display-mobile: 38px;
+  --text-display:  clamp(26px, 3.5vw, 38px);
+  --text-display-mobile: 24px;
   --text-watermark: 160px;
   --text-watermark-mobile: 80px;
 

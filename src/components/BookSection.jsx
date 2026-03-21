@@ -9,6 +9,11 @@ export function BookSection({ data }) {
       <div className="book-main">
         <div className="book-header">
           <div className="section-label">{data.sectionLabel}</div>
+          {data.heading && (
+            <h2 className="book-heading">
+              {data.heading[0]} <em>{data.heading[1]}</em>
+            </h2>
+          )}
           <div className="book-title">
             {titleLines.map((line, i) => (
               <span key={i}>

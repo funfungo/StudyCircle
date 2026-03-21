@@ -7,8 +7,7 @@ export const defaultSiteData = {
 
   hero: {
     eyebrow: '招募令',
-    badge: '女性共学',
-    heading: ['从零构建', '大语言模型'],
+    badge: ['女性', 'AI共学'],
     subtitle: '一本书、八周时间、一群认真的人——\n一起读懂 LLM 背后真正发生的事。',
     openingTime: '2026 年 4 月 · 正式开营',
     logoAlt: '女性AI共学小组',
@@ -23,6 +22,7 @@ export const defaultSiteData = {
 
   book: {
     spine: 'Build LLM From Scratch',
+    heading: ['从零构建', '大语言模型'],
     sectionLabel: '· 本期书目 ·',
     title: 'Build a Large Language Model\n(From Scratch)',
     author: 'Sebastian Raschka · 2024',
@@ -125,7 +125,7 @@ export const defaultSiteData = {
   cta: {
     text: ['想一起读的，', '来报个名吧。'],
     highlight: '报个名',
-    meta: '· 人数不设上限，但越早越好 · 有 Python 基础即可 ·',
+    meta: '· 人数有限，越早越好 · 有 Python 基础即可 ·',
     buttonText: '加入我们 →',
     onButtonClick: null,
   },
