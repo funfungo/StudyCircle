@@ -1,0 +1,536 @@
+/* ================================================
+ * Mobile Paged View — 3:4 Aspect Ratio
+ * ================================================ */
+
+/* ── Page 1: Hero ────────────────────────────── */
+
+.page-hero {
+  justify-content: space-between;
+}
+
+.mp-topbar {
+  background: var(--color-chrome);
+  color: var(--color-on-chrome);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.mp-topbar__title {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mp-topbar__tag {
+  background: var(--color-accent);
+  color: white;
+  padding: 2px 6px;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  flex-shrink: 0;
+}
+
+.mp-topbar .theme-toggle {
+  flex-shrink: 0;
+}
+
+.mp-hero {
+  flex: 1;
+  padding: 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mp-hero::after {
+  content: 'LLM';
+  position: absolute;
+  right: -10px;
+  top: 10%;
+  font-family: var(--font-mono);
+  font-size: 80px;
+  font-weight: var(--weight-bold);
+  color: transparent;
+  -webkit-text-stroke: 1.2px var(--color-ink-ghost);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mp-hero__badge {
+  font-family: var(--font-serif);
+  font-size: clamp(36px, 10vw, 52px);
+  font-weight: var(--weight-black);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-accent);
+  margin-bottom: 8px;
+  user-select: none;
+}
+
+.mp-hero__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+
+.mp-hero__time {
+  padding: 3px 8px;
+  border: 1px solid var(--color-accent);
+}
+
+.mp-hero__heading {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 8vw, 42px);
+  font-weight: var(--weight-black);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+
+.mp-hero__heading em {
+  font-style: normal;
+  color: var(--color-accent);
+}
+
+.mp-hero__subtitle {
+  font-family: var(--font-serif);
+  font-size: clamp(12px, 3.5vw, 16px);
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+
+.mp-hero__logo {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.mp-hero__logo .theme-logo {
+  position: relative;
+  width: clamp(100px, 30vw, 180px);
+  bottom: auto;
+  right: auto;
+}
+
+.mp-stats {
+  display: flex;
+  border-top: 2px solid var(--color-ink);
+  flex-shrink: 0;
+}
+
+.mp-stat {
+  flex: 1;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border-right: 1px solid var(--color-line);
+}
+
+.mp-stat:last-child {
+  border-right: none;
+}
+
+.mp-stat__num {
+  font-family: var(--font-mono);
+  font-size: clamp(24px, 7vw, 34px);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+}
+
+.mp-stat__num em {
+  font-style: normal;
+  font-size: 0.6em;
+  color: var(--color-accent);
+}
+
+.mp-stat__label {
+  font-size: 10px;
+  color: var(--color-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── Page 2: Book ────────────────────────────── */
+
+.page-book {
+  position: relative;
+}
+
+.mp-book__header {
+  padding: 20px 20px 14px;
+  border-bottom: 1px solid var(--color-line);
+  flex-shrink: 0;
+}
+
+.mp-section-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 10px;
+}
+
+.mp-book__title {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 5vw, 24px);
+  font-weight: var(--weight-bold);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.mp-book__author {
+  font-size: 11px;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+}
+
+.mp-book__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mp-book__cover-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--color-ink-ghost);
+  border-bottom: 1px solid var(--color-line);
+  flex-shrink: 0;
+}
+
+.mp-book__cover {
+  width: clamp(90px, 25vw, 130px);
+}
+
+.mp-book__cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+  box-shadow: 4px 4px 0 var(--color-line);
+}
+
+.mp-book__cover-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.mp-book__desc {
+  flex: 1;
+  padding: 16px 20px;
+  font-size: clamp(11px, 3vw, 13px);
+  line-height: 1.85;
+  color: var(--color-body);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mp-book__desc p {
+  margin: 0;
+  text-indent: 2em;
+}
+
+.mp-book__desc p:first-child {
+  text-indent: 0;
+}
+
+.mp-book__spine {
+  background: var(--color-chrome);
+  color: var(--color-gold);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 6px;
+  flex-shrink: 0;
+}
+
+/* ── Page 3 & 4: Schedule ────────────────────── */
+
+.page-schedule {
+  justify-content: flex-start;
+}
+
+.mp-schedule__head {
+  padding: 20px 20px 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.mp-schedule__range {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: var(--weight-bold);
+  color: var(--color-ink-ghost);
+  letter-spacing: 0.05em;
+}
+
+.mp-schedule__grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: 12px 20px 20px;
+  border: 1px solid var(--color-ink);
+}
+
+.mp-week {
+  padding: 14px 12px;
+  border-right: 1px solid var(--color-ink);
+  border-bottom: 1px solid var(--color-ink);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s ease;
+}
+
+.mp-week:nth-child(2n) {
+  border-right: none;
+}
+
+.mp-week:nth-child(n + 3) {
+  border-bottom: none;
+}
+
+.mp-week__num {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.mp-week__topic {
+  font-family: var(--font-serif);
+  font-size: clamp(13px, 3.5vw, 16px);
+  font-weight: var(--weight-semibold);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.mp-week__chapters {
+  font-size: 9px;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  line-height: 1.5;
+  margin-top: auto;
+}
+
+/* ── Page 5: Format + Perks ──────────────────── */
+
+.page-perks {
+  background: var(--color-chrome);
+  color: var(--color-on-chrome);
+}
+
+.mp-formats {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-bottom: 1px solid var(--color-chrome-dim);
+  flex-shrink: 0;
+}
+
+.mp-format {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.mp-format__icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.mp-format__title {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  font-weight: var(--weight-semibold);
+  margin-bottom: 3px;
+}
+
+.mp-format__desc {
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--color-chrome-soft);
+}
+
+.mp-perks {
+  flex: 1;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mp-perks .mp-section-label {
+  color: var(--color-chrome-muted);
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.mp-perks__grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-content: start;
+}
+
+.mp-perk {
+  padding: 10px 10px 10px 12px;
+  border: 1px solid var(--color-chrome-dim);
+  position: relative;
+}
+
+.mp-perk::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--color-gold);
+}
+
+.mp-perk__title {
+  font-family: var(--font-serif);
+  font-size: clamp(11px, 3vw, 13px);
+  font-weight: var(--weight-semibold);
+  color: var(--color-gold);
+  margin-bottom: 3px;
+}
+
+.mp-perk__desc {
+  font-size: clamp(9px, 2.5vw, 10px);
+  line-height: 1.6;
+  color: var(--color-chrome-soft);
+}
+
+/* ── Page 6: CTA + Footer ────────────────────── */
+
+.page-cta {
+  justify-content: center;
+  position: relative;
+}
+
+.page-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    var(--color-paper) 0%,
+    var(--color-accent-tint) 100%
+  );
+  pointer-events: none;
+}
+
+.mp-cta {
+  position: relative;
+  z-index: 1;
+  padding: 0 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  justify-content: center;
+  gap: 16px;
+}
+
+.mp-cta__text {
+  font-family: var(--font-serif);
+  font-size: clamp(22px, 6vw, 32px);
+  font-weight: var(--weight-semibold);
+  line-height: 1.35;
+}
+
+.mp-cta__text em {
+  font-style: normal;
+  color: var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.mp-cta__meta {
+  font-size: 10px;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+}
+
+.mp-cta__btn {
+  display: inline-block;
+  background: var(--color-accent);
+  color: white;
+  padding: 12px 32px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  margin-top: 6px;
+}
+
+.mp-cta__btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 var(--color-shadow);
+}
+
+.mp-footer {
+  position: relative;
+  z-index: 1;
+  background: var(--color-chrome);
+  color: var(--color-chrome-muted);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  flex-shrink: 0;
+}
+
+.mp-footer__logo {
+  color: var(--color-gold);
+  font-size: 10px;
+  font-weight: var(--weight-bold);
+}

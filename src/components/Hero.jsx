@@ -5,6 +5,9 @@ export function Hero({ data }) {
 
   return (
     <div className="hero">
+      {data.badge && (
+        <div className="hero-badge">{data.badge}</div>
+      )}
       <div className="eyebrow">
         {data.openingTime && (
           <span className="opening-time">{data.openingTime}</span>
