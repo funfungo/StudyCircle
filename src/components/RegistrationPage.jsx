@@ -45,7 +45,7 @@ export function RegistrationPage({ onToggleTheme }) {
         .insert([{
           name: form.name.trim(),
           wechat: form.wechat.trim(),
-          xiaohongshu: form.xiaohongshu.trim() || null,
+          xiaohongshu: form.xiaohongshu.trim(),
           email: form.email.trim(),
           python_level: form.python_level,
           motivation: form.motivation.trim(),
@@ -123,7 +123,7 @@ export function RegistrationPage({ onToggleTheme }) {
 
             <div className="reg-field">
               <label className="reg-label" htmlFor="reg-xiaohongshu">
-                小红书号 <span className="reg-optional">(选填)</span>
+                小红书号 <span className="reg-required">*</span>
               </label>
               <input
                 id="reg-xiaohongshu"
@@ -133,6 +133,7 @@ export function RegistrationPage({ onToggleTheme }) {
                 value={form.xiaohongshu}
                 onChange={handleChange}
                 placeholder="小红书号或主页链接"
+                required
               />
             </div>
 
