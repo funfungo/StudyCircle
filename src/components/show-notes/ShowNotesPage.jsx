@@ -1,13 +1,13 @@
 import { useParams, Navigate } from 'react-router-dom'
-import { TopBar } from './TopBar'
-import { Footer } from './Footer'
+import { TopBar } from '../shared/TopBar'
+import { Footer } from '../shared/Footer'
 import { NotesHeader } from './NotesHeader'
 import { NotesSummary } from './NotesSummary'
 import { NotesTopics } from './NotesTopics'
 import { NotesResources } from './NotesResources'
 import { NotesHighlights } from './NotesHighlights'
 import { NotesNextEpisode } from './NotesNextEpisode'
-import { showNotesMap, latestEpisodeId } from '../data'
+import { showNotesMap, latestEpisodeId } from '../../data'
 import './ShowNotesPage.css'
 
 export function ShowNotesPage({ data, onToggleTheme }) {

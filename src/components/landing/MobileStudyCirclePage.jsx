@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { MobileSwiper } from './MobileSwiper'
-import { defaultSiteData } from '../data'
+import { MobileSwiper } from '../shared/MobileSwiper'
+import { defaultSiteData } from '../../data'
 import './MobileStudyCirclePage.css'
 
 export function MobileStudyCirclePage({ data, onToggleTheme }) {

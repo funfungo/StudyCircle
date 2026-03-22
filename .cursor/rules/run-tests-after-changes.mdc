@@ -1,0 +1,10 @@
+---
+description: Run tests after making code changes to verify nothing is broken
+alwaysApply: true
+---
+
+# 修改后跑测试
+
+每次完成代码修改后，运行 `pnpm test --run` 确认所有测试通过，再告知用户任务完成。
+
+如果测试失败，先修复再继续。

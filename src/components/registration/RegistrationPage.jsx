@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getSupabase } from '../lib/supabase';
-import { TopBar } from './TopBar';
-import { Footer } from './Footer';
-import { defaultSiteData } from '../data';
+import { getSupabase } from '../../lib/supabase';
+import { TopBar } from '../shared/TopBar';
+import { Footer } from '../shared/Footer';
+import { defaultSiteData } from '../../data';
 import './RegistrationPage.css';
 
 const CONTRACT_ITEMS = [

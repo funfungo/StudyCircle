@@ -1,4 +1,4 @@
-import { MobileSwiper } from './MobileSwiper'
+import { MobileSwiper } from '../shared/MobileSwiper'
 import './MobileShowNotesPage.css'
 
 const typeLabels = {

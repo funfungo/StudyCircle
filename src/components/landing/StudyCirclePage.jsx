@@ -1,4 +1,4 @@
-import { TopBar } from './TopBar'
+import { TopBar } from '../shared/TopBar'
 import { Hero } from './Hero'
 import { StatsStrip } from './StatsStrip'
 import { BookSection } from './BookSection'
@@ -6,8 +6,8 @@ import { Schedule } from './Schedule'
 import { FormatSection } from './FormatSection'
 import { Perks } from './Perks'
 import { CTA } from './CTA'
-import { Footer } from './Footer'
-import { defaultSiteData } from '../data'
+import { Footer } from '../shared/Footer'
+import { defaultSiteData } from '../../data'
 
 export function StudyCirclePage({ data, onToggleTheme }) {
   const d = data || defaultSiteData

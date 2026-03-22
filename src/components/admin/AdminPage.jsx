@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import { getSupabase } from '../lib/supabase'
+import { getSupabase } from '../../lib/supabase'
 import './AdminPage.css'
 
 const COL_COUNT = 8
