@@ -12,13 +12,15 @@
     "deploy": "vite build && vercel --prod",
     "migrate": "node scripts/migrate.mjs",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@vitejs/plugin-react": "^6.0.1",
+    "husky": "^9.1.7",
     "jsdom": "^29.0.1",
     "playwright": "^1.58.2",
     "vite": "^8.0.1",
