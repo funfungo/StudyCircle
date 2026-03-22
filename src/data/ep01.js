@@ -36,18 +36,11 @@ export const ep01 = {
     sectionLabel: '· 延伸资源 ·',
     categories: [
       {
-        label: '必读',
+        label: '入门基础',
         items: [
+          { title: 'But what is a neural network? — 3Blue1Brown', url: 'https://www.youtube.com/watch?v=aircAruvnKk', type: 'video' },
           { title: 'Introduction to Large Language Models — Andrej Karpathy', url: 'https://www.youtube.com/watch?v=zjkBMFhNj_g', type: 'video' },
-          { title: 'The Illustrated Transformer — Jay Alammar', url: 'https://jalammar.github.io/illustrated-transformer/', type: 'article' },
-        ],
-      },
-      {
-        label: '推荐阅读',
-        items: [
-          { title: 'What Is ChatGPT Doing … and Why Does It Work? — Stephen Wolfram', url: 'https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/', type: 'article' },
-          { title: 'The Illustrated GPT-2 — Jay Alammar', url: 'https://jalammar.github.io/illustrated-gpt2/', type: 'article' },
-          { title: 'But what is a GPT? — 3Blue1Brown', url: 'https://www.youtube.com/watch?v=wjZofJX0v4M', type: 'video' },
+          { title: 'Attention in transformers, visually explained — 3Blue1Brown', url: 'https://www.youtube.com/watch?v=eMlx5fFNoYc', type: 'video' },
         ],
       },
       {

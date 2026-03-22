@@ -8,11 +8,22 @@ const typeLabels = {
   tool: 'Tool',
 }
 
+function getGridColumns(count) {
+  if (count <= 3) return count
+  if (count === 4) return 2
+  return 3
+}
+
 export function NotesResources({ data }) {
+  const columns = getGridColumns(data.categories.length)
+
   return (
     <div className="notes-resources">
       <div className="section-label">{data.sectionLabel}</div>
-      <div className="resources-grid">
+      <div
+        className="resources-grid"
+        style={{ '--grid-columns': columns }}
+      >
         {data.categories.map((cat) => (
           <div className="resource-category" key={cat.label}>
             <div className="resource-category-label">{cat.label}</div>
