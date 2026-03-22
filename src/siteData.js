@@ -127,7 +127,7 @@ export const defaultSiteData = {
     highlight: '报个名',
     meta: '· 人数有限，越早越好 · 有 Python 基础即可 ·',
     buttonText: '加入我们 →',
-    onButtonClick: null,
+    buttonLink: '/register',
   },
 
   footer: {

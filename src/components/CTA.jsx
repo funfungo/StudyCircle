@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './CTA.css'
 
 export function CTA({ data }) {
@@ -27,9 +28,15 @@ export function CTA({ data }) {
         <div className="cta-meta">{data.meta}</div>
       </div>
       <div>
-        <button className="cta-btn" onClick={data.onButtonClick}>
-          {data.buttonText}
-        </button>
+        {data.buttonLink ? (
+          <Link className="cta-btn" to={data.buttonLink}>
+            {data.buttonText}
+          </Link>
+        ) : (
+          <button className="cta-btn" onClick={data.onButtonClick}>
+            {data.buttonText}
+          </button>
+        )}
       </div>
     </div>
   )

@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { Routes, Route, useSearchParams } from 'react-router-dom'
 import { StudyCirclePage } from './components/StudyCirclePage'
 import { MobileStudyCirclePage } from './components/MobileStudyCirclePage'
+import { RegistrationPage } from './components/RegistrationPage'
 import { DevTools } from './dev/DevTools'
 import { useTheme } from './hooks/useTheme'
 
@@ -12,22 +14,13 @@ function dismissLoading() {
   el.addEventListener('transitionend', () => el.remove(), { once: true })
 }
 
-function useViewMode() {
-  const [mode, setMode] = useState(() => {
-    const params = new URLSearchParams(window.location.search)
-    return params.get('view') === 'mobile' ? 'mobile' : 'desktop'
-  })
+function HomePage({ onToggleTheme }) {
+  const [searchParams] = useSearchParams()
+  const isMobile = searchParams.get('view') === 'mobile'
 
-  useEffect(() => {
-    const onChange = () => {
-      const params = new URLSearchParams(window.location.search)
-      setMode(params.get('view') === 'mobile' ? 'mobile' : 'desktop')
-    }
-    window.addEventListener('popstate', onChange)
-    return () => window.removeEventListener('popstate', onChange)
-  }, [])
-
-  return mode
+  return isMobile
+    ? <MobileStudyCirclePage onToggleTheme={onToggleTheme} />
+    : <StudyCirclePage onToggleTheme={onToggleTheme} />
 }
 
 const isInsideDevToolsIframe =
@@ -35,7 +28,6 @@ const isInsideDevToolsIframe =
 
 export function App() {
   const { theme, themeKeys, themeNames, cycleTheme, switchTheme } = useTheme()
-  const viewMode = useViewMode()
 
   useEffect(() => {
     document.fonts.ready.then(dismissLoading)
@@ -45,10 +37,10 @@ export function App() {
 
   return (
     <>
-      {viewMode === 'mobile'
-        ? <MobileStudyCirclePage onToggleTheme={cycleTheme} />
-        : <StudyCirclePage onToggleTheme={cycleTheme} />
-      }
+      <Routes>
+        <Route path="/" element={<HomePage onToggleTheme={cycleTheme} />} />
+        <Route path="/register" element={<RegistrationPage onToggleTheme={cycleTheme} />} />
+      </Routes>
       {showDevTools && (
         <DevTools
           theme={theme}

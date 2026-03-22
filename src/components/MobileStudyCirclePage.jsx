@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { MobileSwiper } from './MobileSwiper'
 import { defaultSiteData } from '../siteData'
 import './MobileStudyCirclePage.css'
@@ -189,9 +190,15 @@ export function MobileStudyCirclePage({ data = {}, onToggleTheme }) {
             })}
           </div>
           <div className="mp-cta__meta">{d.cta.meta}</div>
-          <button className="mp-cta__btn" onClick={d.cta.onButtonClick}>
-            {d.cta.buttonText}
-          </button>
+          {d.cta.buttonLink ? (
+            <Link className="mp-cta__btn" to={d.cta.buttonLink}>
+              {d.cta.buttonText}
+            </Link>
+          ) : (
+            <button className="mp-cta__btn" onClick={d.cta.onButtonClick}>
+              {d.cta.buttonText}
+            </button>
+          )}
         </div>
         <div className="mp-footer">
           <span className="mp-footer__logo">{d.footer.logo}</span>

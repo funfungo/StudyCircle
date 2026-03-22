@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import './DevTools.css'
 
 const DEVICE_PRESETS = [
@@ -8,6 +9,11 @@ const DEVICE_PRESETS = [
   { label: 'iPhone+', width: 414 },
   { label: 'iPhone 14', width: 390 },
   { label: 'iPhone SE', width: 375 },
+]
+
+const ROUTE_PRESETS = [
+  { label: '首页', path: '/' },
+  { label: '报名', path: '/register' },
 ]
 
 export function DevTools({
@@ -21,6 +27,8 @@ export function DevTools({
   const [pageView, setPageView] = useState('desktop')
   const [activePreset, setActivePreset] = useState(null)
   const iframeRef = useRef(null)
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const toggle = useCallback(() => setOpen(v => !v), [])
 
@@ -150,6 +158,22 @@ export function DevTools({
                 >
                   3:4 翻页
                 </button>
+              </div>
+            </div>
+
+            <div className="devtools__section">
+              <span className="devtools__label">Route</span>
+              <div className="devtools__row">
+                {ROUTE_PRESETS.map(r => (
+                  <button
+                    key={r.path}
+                    className={`devtools__chip ${location.pathname === r.path ? 'devtools__chip--active' : ''}`}
+                    onClick={() => navigate(r.path)}
+                  >
+                    {r.label}
+                    <span className="devtools__dim">{r.path}</span>
+                  </button>
+                ))}
               </div>
             </div>
 
