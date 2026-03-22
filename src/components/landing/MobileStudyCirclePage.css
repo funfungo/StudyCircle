@@ -367,6 +367,25 @@
   margin-top: auto;
 }
 
+.mp-week--linked {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mp-week--linked:active {
+  background: var(--color-accent-tint);
+}
+
+.mp-week__notes-hint {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+}
+
 /* ── Page 5: Format + Perks ──────────────────── */
 
 .page-perks {

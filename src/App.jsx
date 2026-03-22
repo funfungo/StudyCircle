@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route, Navigate, useSearchParams, useParams } from 'react-router-dom'
+import { Routes, Route, Navigate, useSearchParams, useParams, useLocation } from 'react-router-dom'
 import { StudyCirclePage } from './components/landing/StudyCirclePage'
 import { MobileStudyCirclePage } from './components/landing/MobileStudyCirclePage'
 import { RegistrationPage } from './components/registration/RegistrationPage'
@@ -52,6 +52,14 @@ function ShowNotesRoute({ onToggleTheme }) {
 const isInsideDevToolsIframe =
   new URLSearchParams(window.location.search).has('_devtools')
 
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  return null
+}
+
 export function App() {
   const { theme, themeKeys, themeNames, cycleTheme, switchTheme } = useTheme()
 
@@ -63,6 +71,7 @@ export function App() {
 
   return (
     <>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Navigate to={`/${latestSeasonId}`} replace />} />
         <Route path="/:seasonId" element={<SeasonPage onToggleTheme={cycleTheme} />} />

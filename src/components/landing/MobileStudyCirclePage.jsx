@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom'
 import { MobileSwiper } from '../shared/MobileSwiper'
-import { defaultSiteData } from '../../data'
+import { defaultSiteData, showNotesMap } from '../../data'
 import './MobileStudyCirclePage.css'
+
+function getEpId(weekNum) {
+  return `ep${weekNum.replace('Week ', '')}`
+}
 
 export function MobileStudyCirclePage({ data, onToggleTheme }) {
   const d = data || defaultSiteData
@@ -98,20 +102,27 @@ export function MobileStudyCirclePage({ data, onToggleTheme }) {
           <div className="mp-schedule__range">01 — 04</div>
         </div>
         <div className="mp-schedule__grid">
-          {d.schedule.weeks.slice(0, scheduleHalf).map((w) => (
-            <div className="mp-week" key={w.num}>
-              <div className="mp-week__num">{w.num}</div>
-              <div className="mp-week__topic">{w.topic}</div>
-              <div className="mp-week__chapters">
-                {w.chapters.map((line, i, arr) => (
-                  <span key={i}>
-                    {line}
-                    {i < arr.length - 1 && <br />}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
+          {d.schedule.weeks.slice(0, scheduleHalf).map((w) => {
+            const epId = getEpId(w.num)
+            const hasNotes = !!showNotesMap[epId]
+            const Tag = hasNotes ? Link : 'div'
+            const extra = hasNotes ? { to: `/show-notes/${epId}` } : {}
+            return (
+              <Tag className={`mp-week${hasNotes ? ' mp-week--linked' : ''}`} key={w.num} {...extra}>
+                <div className="mp-week__num">{w.num}</div>
+                <div className="mp-week__topic">{w.topic}</div>
+                <div className="mp-week__chapters">
+                  {w.chapters.map((line, i, arr) => (
+                    <span key={i}>
+                      {line}
+                      {i < arr.length - 1 && <br />}
+                    </span>
+                  ))}
+                </div>
+                {hasNotes && <span className="mp-week__notes-hint">Show Notes →</span>}
+              </Tag>
+            )
+          })}
         </div>
       </div>
 
@@ -122,20 +133,27 @@ export function MobileStudyCirclePage({ data, onToggleTheme }) {
           <div className="mp-schedule__range">05 — 08</div>
         </div>
         <div className="mp-schedule__grid">
-          {d.schedule.weeks.slice(scheduleHalf).map((w) => (
-            <div className="mp-week" key={w.num}>
-              <div className="mp-week__num">{w.num}</div>
-              <div className="mp-week__topic">{w.topic}</div>
-              <div className="mp-week__chapters">
-                {w.chapters.map((line, i, arr) => (
-                  <span key={i}>
-                    {line}
-                    {i < arr.length - 1 && <br />}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
+          {d.schedule.weeks.slice(scheduleHalf).map((w) => {
+            const epId = getEpId(w.num)
+            const hasNotes = !!showNotesMap[epId]
+            const Tag = hasNotes ? Link : 'div'
+            const extra = hasNotes ? { to: `/show-notes/${epId}` } : {}
+            return (
+              <Tag className={`mp-week${hasNotes ? ' mp-week--linked' : ''}`} key={w.num} {...extra}>
+                <div className="mp-week__num">{w.num}</div>
+                <div className="mp-week__topic">{w.topic}</div>
+                <div className="mp-week__chapters">
+                  {w.chapters.map((line, i, arr) => (
+                    <span key={i}>
+                      {line}
+                      {i < arr.length - 1 && <br />}
+                    </span>
+                  ))}
+                </div>
+                {hasNotes && <span className="mp-week__notes-hint">Show Notes →</span>}
+              </Tag>
+            )
+          })}
         </div>
       </div>
 

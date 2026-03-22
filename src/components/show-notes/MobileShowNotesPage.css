@@ -3,6 +3,23 @@
    Prefix: mp-sn-
    ══════════════════════════════════════════════ */
 
+/* ── Entry animations ── */
+
+@keyframes mp-sn-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes mp-sn-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mp-sn-slide-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
 /* ── Page 1: Header ── */
 .page-sn-header {
   justify-content: flex-start;
@@ -20,6 +37,41 @@
   letter-spacing: 0.15em;
   text-transform: uppercase;
   flex-shrink: 0;
+}
+
+.page-sn-header .mp-sn-topbar {
+  animation: mp-sn-fade-in 0.4s ease both;
+}
+
+.page-sn-header .mp-sn-top-row {
+  animation: mp-sn-fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.page-sn-header .mp-sn-title {
+  animation: mp-sn-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+.page-sn-header .mp-sn-subtitle {
+  animation: mp-sn-fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+
+.page-sn-header .mp-sn-meta {
+  animation: mp-sn-fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+}
+
+.page-sn-header .mp-sn-contributors {
+  animation: mp-sn-slide-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-sn-header .mp-sn-topbar,
+  .page-sn-header .mp-sn-top-row,
+  .page-sn-header .mp-sn-title,
+  .page-sn-header .mp-sn-subtitle,
+  .page-sn-header .mp-sn-meta,
+  .page-sn-header .mp-sn-contributors {
+    animation: none;
+  }
 }
 
 .mp-sn-topbar__title {

@@ -1,4 +1,5 @@
 import { useParams, Navigate } from 'react-router-dom'
+import { useRef, useEffect } from 'react'
 import { TopBar } from '../shared/TopBar'
 import { Footer } from '../shared/Footer'
 import { NotesHeader } from './NotesHeader'
@@ -12,6 +13,26 @@ import './ShowNotesPage.css'
 
 export function ShowNotesPage({ data, onToggleTheme }) {
   const { id } = useParams()
+  const pageRef = useRef(null)
+
+  useEffect(() => {
+    const el = pageRef.current
+    if (!el) return
+    const sections = el.querySelectorAll('.sn-section')
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('sn-section--visible')
+            obs.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.08, rootMargin: '0px 0px -30px 0px' },
+    )
+    sections.forEach((s) => obs.observe(s))
+    return () => obs.disconnect()
+  }, [])
 
   /* When rendered via ShowNotesRoute, data is passed as prop */
   const d = data || showNotesMap[id]
@@ -28,20 +49,36 @@ export function ShowNotesPage({ data, onToggleTheme }) {
 
   const isComplete = d.status === 'complete'
 
+  let sectionIdx = 0
+
   return (
-    <div className="show-notes-page">
+    <div className="show-notes-page" ref={pageRef}>
       <TopBar data={d.topBar} onToggleTheme={onToggleTheme} />
-      <NotesHeader data={d.episode} status={d.status} />
-      <NotesSummary data={d.summary} />
-      <NotesResources data={d.resources} />
+      <div className="sn-section" style={{ '--sn-i': sectionIdx++ }}>
+        <NotesHeader data={d.episode} status={d.status} />
+      </div>
+      <div className="sn-section" style={{ '--sn-i': sectionIdx++ }}>
+        <NotesSummary data={d.summary} />
+      </div>
+      <div className="sn-section" style={{ '--sn-i': sectionIdx++ }}>
+        <NotesResources data={d.resources} />
+      </div>
       {isComplete && (
         <>
-          <NotesTopics data={d.topics} />
-          <NotesHighlights data={d.highlights} />
-          <NotesNextEpisode data={d.nextEpisode} />
+          <div className="sn-section" style={{ '--sn-i': sectionIdx++ }}>
+            <NotesTopics data={d.topics} />
+          </div>
+          <div className="sn-section" style={{ '--sn-i': sectionIdx++ }}>
+            <NotesHighlights data={d.highlights} />
+          </div>
+          <div className="sn-section" style={{ '--sn-i': sectionIdx++ }}>
+            <NotesNextEpisode data={d.nextEpisode} />
+          </div>
         </>
       )}
-      <Footer data={d.footer} />
+      <div className="sn-section" style={{ '--sn-i': sectionIdx++ }}>
+        <Footer data={d.footer} />
+      </div>
     </div>
   )
 }

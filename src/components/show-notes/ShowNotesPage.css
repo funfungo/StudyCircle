@@ -1,4 +1,27 @@
-/* ShowNotesPage — 页面容器，无额外样式，
-   各 section 自行管理 padding/border */
+/* ShowNotesPage — 页面容器 */
 .show-notes-page {
+}
+
+/* ── Scroll-reveal sections ── */
+
+.sn-section {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--sn-i, 0) * 0.08s);
+}
+
+.sn-section--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sn-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
