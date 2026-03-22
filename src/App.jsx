@@ -3,6 +3,7 @@ import { Routes, Route, useSearchParams } from 'react-router-dom'
 import { StudyCirclePage } from './components/StudyCirclePage'
 import { MobileStudyCirclePage } from './components/MobileStudyCirclePage'
 import { RegistrationPage } from './components/RegistrationPage'
+import { AdminPage } from './components/AdminPage'
 import { DevTools } from './dev/DevTools'
 import { useTheme } from './hooks/useTheme'
 
@@ -40,6 +41,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<HomePage onToggleTheme={cycleTheme} />} />
         <Route path="/register" element={<RegistrationPage onToggleTheme={cycleTheme} />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
       {showDevTools && (
         <DevTools

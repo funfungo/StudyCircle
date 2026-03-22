@@ -33,7 +33,7 @@ body::before {
 }
 
 .hero, .stats-strip, .book-section, .schedule-section,
-.format-section, .perks-section, .cta-section, .reg-page {
+.format-section, .perks-section, .cta-section, .reg-page, .adm-page {
   opacity: 0;
 }
 
@@ -44,7 +44,8 @@ body::before {
 .app-ready .format-section,
 .app-ready .perks-section,
 .app-ready .cta-section,
-.app-ready .reg-page {
+.app-ready .reg-page,
+.app-ready .adm-page {
   animation: var(--ease-anim);
   animation-name: fadeUp;
 }

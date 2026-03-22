@@ -9,7 +9,7 @@ export const defaultSiteData = {
     eyebrow: '招募令',
     badge: ['女性', 'AI共学'],
     subtitle: '一本书、八周时间、一群认真的人——\n一起读懂 LLM 背后真正发生的事。',
-    openingTime: '2026 年 4 月 · 正式开营',
+    openingTime: '2026 年 4 月 10 日· 正式开营',
     logoAlt: '女性AI共学小组',
     watermark: 'LLM',
   },
