@@ -307,6 +307,26 @@
 .mp-sn-resource-item {
   display: flex;
   align-items: baseline;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.mp-sn-resource-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.mp-sn-resource-item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.mp-sn-resource-item-row {
+  display: flex;
+  align-items: baseline;
   gap: 8px;
 }
 
@@ -320,6 +340,13 @@
 
 .mp-sn-resource-link:hover {
   text-decoration: underline;
+}
+
+.mp-sn-resource-desc {
+  font-family: var(--font-serif);
+  font-size: clamp(12px, 3.2vw, 14px);
+  color: var(--color-muted);
+  line-height: 1.5;
 }
 
 .mp-sn-resource-type {

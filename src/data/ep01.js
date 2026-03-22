@@ -36,18 +36,19 @@ export const ep01 = {
     sectionLabel: '· 延伸资源 ·',
     categories: [
       {
-        label: '入门基础',
+        label: '必读',
         items: [
-          { title: 'But what is a neural network? — 3Blue1Brown', url: 'https://www.youtube.com/watch?v=aircAruvnKk', type: 'video' },
-          { title: 'Introduction to Large Language Models — Andrej Karpathy', url: 'https://www.youtube.com/watch?v=zjkBMFhNj_g', type: 'video' },
-          { title: 'Attention in transformers, visually explained — 3Blue1Brown', url: 'https://www.youtube.com/watch?v=eMlx5fFNoYc', type: 'video' },
+          
+          { title: 'Deep Dive into LLMs like ChatGPT', url: 'https://www.youtube.com/watch?v=7xTGNNLPyMI', type: 'video', description: 'Andrej Karpathy 的 ChatGPT 深度解析' },
+          { title: 'But what is a neural network?', url: 'https://www.youtube.com/watch?v=aircAruvnKk', type: 'video', description: '3Blue1Brown 的神经网络深度解析' },
+          { title: 'Attention in transformers, visually explained', url: 'https://www.youtube.com/watch?v=eMlx5fFNoYc', type: 'video', description: '3Blue1Brown 的注意力机制深度解析' },
         ],
       },
       {
         label: '工具 & 代码',
         items: [
-          { title: 'rasbt/LLMs-from-scratch — 书籍官方代码', url: 'https://github.com/rasbt/LLMs-from-scratch', type: 'code' },
-          { title: 'Transformer Explainer — 交互式可视化', url: 'https://poloclub.github.io/transformer-explainer/', type: 'tool' },
+          { title: 'rasbt/LLMs-from-scratch', url: 'https://github.com/rasbt/LLMs-from-scratch', type: 'code', description: '书籍官方代码' },
+          { title: 'Transformer Explainer', url: 'https://poloclub.github.io/transformer-explainer/', type: 'tool', description: '交互式可视化' },
         ],
       },
     ],

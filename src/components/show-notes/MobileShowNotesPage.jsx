@@ -47,14 +47,16 @@ export function MobileShowNotesPage({ data, onToggleTheme }) {
           <span className="mp-sn-meta__sep">·</span>
           <span>{d.episode.duration}</span>
         </div>
-        <div className="mp-sn-contributors">
-          {d.episode.contributors.map((c) => (
-            <span className="mp-sn-contributor" key={c.name}>
-              {c.name}
-              <span className="mp-sn-contributor__role">{c.role}</span>
-            </span>
-          ))}
-        </div>
+        {d.status !== 'preview' && (
+          <div className="mp-sn-contributors">
+            {d.episode.contributors.map((c) => (
+              <span className="mp-sn-contributor" key={c.name}>
+                {c.name}
+                <span className="mp-sn-contributor__role">{c.role}</span>
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>,
   )
@@ -102,17 +104,24 @@ export function MobileShowNotesPage({ data, onToggleTheme }) {
             <ul className="mp-sn-resource-list">
               {cat.items.map((item) => (
                 <li className="mp-sn-resource-item" key={item.title}>
-                  <a
-                    className="mp-sn-resource-link"
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {item.title}
-                  </a>
-                  <span className="mp-sn-resource-type">
-                    {typeLabels[item.type] || item.type}
-                  </span>
+                  <div className="mp-sn-resource-item-body">
+                    <div className="mp-sn-resource-item-row">
+                      <a
+                        className="mp-sn-resource-link"
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {item.title}
+                      </a>
+                      <span className="mp-sn-resource-type">
+                        {typeLabels[item.type] || item.type}
+                      </span>
+                    </div>
+                    {item.description && (
+                      <div className="mp-sn-resource-desc">{item.description}</div>
+                    )}
+                  </div>
                 </li>
               ))}
             </ul>
