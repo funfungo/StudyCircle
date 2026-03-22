@@ -52,7 +52,7 @@ const VIEWPORT_DESKTOP = { width: 780, height: 600, deviceScaleFactor: 3 }
 const VIEWPORT_PAGED = {
   width: PAGE_W,
   height: PAGE_H,
-  deviceScaleFactor: isMobile ? 4 : 3,
+  deviceScaleFactor: isPaged ? 4 : 3,
 }
 
 const server = await createServer({
