@@ -1,6 +1,7 @@
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { siteDataMap, showNotesMap } from '../data'
 import './DevTools.css'
 
 const DEVICE_PRESETS = [
@@ -11,10 +12,18 @@ const DEVICE_PRESETS = [
   { label: 'iPhone SE', width: 375 },
 ]
 
-const ROUTE_PRESETS = [
-  { label: '首页', path: '/' },
-  { label: '报名', path: '/register' },
-]
+function buildRoutePresets() {
+  const routes = []
+  for (const id of Object.keys(siteDataMap)) {
+    routes.push({ label: id.toUpperCase(), path: `/${id}` })
+  }
+  routes.push({ label: '报名', path: '/register' })
+  for (const id of Object.keys(showNotesMap)) {
+    routes.push({ label: `Notes ${id.replace('ep', 'EP')}`, path: `/show-notes/${id}` })
+  }
+  routes.push({ label: '后台', path: '/admin' })
+  return routes
+}
 
 export function DevTools({
   theme,
@@ -29,6 +38,7 @@ export function DevTools({
   const iframeRef = useRef(null)
   const navigate = useNavigate()
   const location = useLocation()
+  const routePresets = useMemo(buildRoutePresets, [])
 
   const toggle = useCallback(() => setOpen(v => !v), [])
 
@@ -163,8 +173,8 @@ export function DevTools({
 
             <div className="devtools__section">
               <span className="devtools__label">Route</span>
-              <div className="devtools__row">
-                {ROUTE_PRESETS.map(r => (
+              <div className="devtools__row devtools__row--wrap">
+                {routePresets.map(r => (
                   <button
                     key={r.path}
                     className={`devtools__chip ${location.pathname === r.path ? 'devtools__chip--active' : ''}`}

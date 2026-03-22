@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 import { MobileSwiper } from './MobileSwiper'
-import { defaultSiteData } from '../siteData'
+import { defaultSiteData } from '../data'
 import './MobileStudyCirclePage.css'
 
-export function MobileStudyCirclePage({ data = {}, onToggleTheme }) {
-  const d = { ...defaultSiteData, ...data }
+export function MobileStudyCirclePage({ data, onToggleTheme }) {
+  const d = data || defaultSiteData
   const scheduleHalf = Math.ceil(d.schedule.weeks.length / 2)
 
   return (

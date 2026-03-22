@@ -7,10 +7,10 @@ import { FormatSection } from './FormatSection'
 import { Perks } from './Perks'
 import { CTA } from './CTA'
 import { Footer } from './Footer'
-import { defaultSiteData } from '../siteData'
+import { defaultSiteData } from '../data'
 
-export function StudyCirclePage({ data = {}, onToggleTheme }) {
-  const d = { ...defaultSiteData, ...data }
+export function StudyCirclePage({ data, onToggleTheme }) {
+  const d = data || defaultSiteData
 
   return (
     <>

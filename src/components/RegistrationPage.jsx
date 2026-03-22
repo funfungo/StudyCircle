@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getSupabase } from '../lib/supabase';
 import { TopBar } from './TopBar';
 import { Footer } from './Footer';
-import { defaultSiteData } from '../siteData';
+import { defaultSiteData } from '../data';
 import './RegistrationPage.css';
 
 const CONTRACT_ITEMS = [

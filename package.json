@@ -8,7 +8,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "screenshot": "node scripts/screenshot.mjs",
-    "screenshot:mobile": "SCREENSHOT_MOBILE=1 node scripts/screenshot.mjs",
     "screenshot:pages": "SCREENSHOT_PAGES=1 node scripts/screenshot.mjs",
     "deploy": "vite build && vercel --prod",
     "migrate": "node scripts/migrate.mjs",

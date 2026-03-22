@@ -1,4 +1,4 @@
-export const defaultSiteData = {
+export const s01 = {
   topBar: {
     title: '女性AI共学小组 · Season 01',
     tag: 'NOW OPEN',
