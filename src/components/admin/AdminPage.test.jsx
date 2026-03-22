@@ -22,7 +22,6 @@ const fakeRows = [
     id: 1,
     activity: 'Season 01',
     name: '张三',
-    wechat: 'zs_wx',
     xiaohongshu: 'zs_xhs',
     email: 'zs@test.com',
     python_level: 'beginner',

@@ -21,7 +21,6 @@ async function acceptContract(user) {
 
 async function fillForm(user) {
   await user.type(screen.getByLabelText(/姓名/), '张三')
-  await user.type(screen.getByLabelText(/微信号/), 'zhangsan_wx')
   await user.type(screen.getByLabelText(/小红书号/), 'zhangsan_xhs')
   await user.type(screen.getByLabelText(/邮箱/), 'test@example.com')
   await user.click(screen.getByLabelText(/零基础，但愿意学/))
