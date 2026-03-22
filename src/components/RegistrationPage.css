@@ -405,6 +405,97 @@
   margin-right: auto;
 }
 
+/* ── Contract Modal ────────────────────────────── */
+
+.reg-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  animation: reg-modal-fade-in 0.2s ease-out;
+}
+
+@keyframes reg-modal-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.reg-modal {
+  position: fixed;
+  z-index: 1001;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 8px 40px rgba(15, 14, 12, 0.25);
+  max-width: 540px;
+  width: calc(100% - var(--space-6) * 2);
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  animation: reg-modal-slide-up 0.25s ease-out;
+}
+
+@keyframes reg-modal-slide-up {
+  from { opacity: 0; transform: translate(-50%, -55%) translateY(16px); }
+  to   { opacity: 1; transform: translate(-50%, -55%); }
+}
+
+.reg-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-6) var(--space-8);
+  border-bottom: var(--border-divider);
+}
+
+.reg-modal-header .reg-eyebrow {
+  margin-bottom: 0;
+}
+
+.reg-modal-close {
+  background: none;
+  border: none;
+  font-size: var(--text-5xl);
+  line-height: 1;
+  color: var(--color-muted);
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--ease-default);
+}
+
+.reg-modal-close:hover {
+  color: var(--color-ink);
+}
+
+.reg-modal-body {
+  padding: var(--space-4) var(--space-8);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.reg-modal-body .reg-contract-list {
+  border-top: none;
+  margin-bottom: 0;
+}
+
+.reg-modal-footer {
+  padding: var(--space-6) var(--space-8);
+  border-top: var(--border-divider);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.reg-modal-footer .reg-btn {
+  margin-top: 0;
+}
+
 /* ── Responsive ────────────────────────────────── */
 
 @media (max-width: 600px) {
@@ -438,5 +529,21 @@
     width: 100%;
     text-align: center;
     padding: var(--space-3-5) var(--space-6);
+  }
+
+  .reg-modal {
+    width: calc(100% - var(--space-5) * 2);
+    max-height: 75vh;
+  }
+
+  .reg-modal-header,
+  .reg-modal-body,
+  .reg-modal-footer {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+  }
+
+  .reg-modal .reg-contract-item {
+    padding: var(--space-3) 0;
   }
 }

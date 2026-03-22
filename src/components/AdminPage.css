@@ -169,6 +169,57 @@
   padding: var(--space-15) 0;
 }
 
+/* ── Activity Group ──────────────────────────── */
+
+.adm-group {
+  margin-bottom: var(--space-8);
+}
+
+.adm-group-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 2px solid var(--color-line);
+  padding: var(--space-3) 0;
+  cursor: pointer;
+  transition: border-color var(--ease-default);
+}
+
+.adm-group-header:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+.adm-group-arrow {
+  font-size: 11px;
+  color: var(--color-muted);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.adm-group-arrow[data-open="true"] {
+  transform: rotate(90deg);
+}
+
+.adm-group-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.adm-group-count {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  letter-spacing: var(--tracking-sm);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
 /* ── Table ────────────────────────────────────── */
 
 .adm-table-wrap {
@@ -257,6 +308,10 @@
 .adm-badge-beginner   { color: #5b8a72; border-color: #5b8a72; }
 .adm-badge-intermediate { color: #3b7dd8; border-color: #3b7dd8; }
 .adm-badge-advanced   { color: var(--color-accent); border-color: var(--color-accent); }
+
+.adm-badge-git-none      { color: var(--color-muted); }
+.adm-badge-git-basic     { color: #8a7a5b; border-color: #8a7a5b; }
+.adm-badge-git-proficient { color: #5b8a72; border-color: #5b8a72; }
 
 /* ── Responsive ───────────────────────────────── */
 

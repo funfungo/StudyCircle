@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { getSupabase } from '../lib/supabase'
 import './AdminPage.css'
@@ -8,6 +8,78 @@ const PYTHON_LEVEL_MAP = {
   beginner: '入门',
   intermediate: '日常使用',
   advanced: '非常熟练',
+}
+
+const GIT_LEVEL_MAP = {
+  none: '没用过',
+  basic: '基本操作',
+  proficient: '熟练使用',
+}
+
+function ActivityGroup({ activity, items, defaultOpen }) {
+  const [open, setOpen] = useState(defaultOpen)
+
+  return (
+    <section className="adm-group">
+      <button className="adm-group-header" onClick={() => setOpen(!open)}>
+        <span className="adm-group-arrow" data-open={open}>▶</span>
+        <h2 className="adm-group-title">{activity || '未分类'}</h2>
+        <span className="adm-group-count">{items.length} 人</span>
+      </button>
+
+      {open && (
+        <div className="adm-table-wrap">
+          <table className="adm-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>姓名</th>
+                <th>微信</th>
+                <th>小红书</th>
+                <th>邮箱</th>
+                <th>Python</th>
+                <th>Git</th>
+                <th>动机</th>
+                <th>补充</th>
+                <th>时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((r, i) => (
+                <tr key={r.id}>
+                  <td className="adm-cell-num">{i + 1}</td>
+                  <td className="adm-cell-name">{r.name}</td>
+                  <td className="adm-cell-mono">{r.wechat}</td>
+                  <td className="adm-cell-mono">{r.xiaohongshu || '—'}</td>
+                  <td className="adm-cell-mono">{r.email}</td>
+                  <td>
+                    <span className={`adm-badge adm-badge-${r.python_level}`}>
+                      {PYTHON_LEVEL_MAP[r.python_level] || r.python_level}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={`adm-badge adm-badge-git-${r.git_level}`}>
+                      {GIT_LEVEL_MAP[r.git_level] || r.git_level || '—'}
+                    </span>
+                  </td>
+                  <td className="adm-cell-text">{r.motivation}</td>
+                  <td className="adm-cell-text">{r.questions || '—'}</td>
+                  <td className="adm-cell-time">
+                    {new Date(r.created_at).toLocaleString('zh-CN', {
+                      month: '2-digit',
+                      day: '2-digit',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  )
 }
 
 export function AdminPage() {
@@ -21,6 +93,16 @@ export function AdminPage() {
   const [rows, setRows] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+
+  const grouped = useMemo(() => {
+    const map = new Map()
+    for (const row of rows) {
+      const key = row.activity || ''
+      if (!map.has(key)) map.set(key, [])
+      map.get(key).push(row)
+    }
+    return [...map.entries()]
+  }, [rows])
 
   useEffect(() => {
     const supabase = getSupabase()
@@ -126,7 +208,9 @@ export function AdminPage() {
       <div className="adm-toolbar">
         <Link className="adm-back" to="/">← 返回首页</Link>
         <div className="adm-toolbar-right">
-          <span className="adm-count">{rows.length} 条报名</span>
+          <span className="adm-count">
+            {grouped.length} 个活动 · {rows.length} 条报名
+          </span>
           <button
             className="adm-btn adm-btn-sm"
             onClick={fetchData}
@@ -152,49 +236,14 @@ export function AdminPage() {
       ) : rows.length === 0 ? (
         <p className="adm-empty">暂无报名数据</p>
       ) : (
-        <div className="adm-table-wrap">
-          <table className="adm-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>姓名</th>
-                <th>微信</th>
-                <th>小红书</th>
-                <th>邮箱</th>
-                <th>Python</th>
-                <th>动机</th>
-                <th>补充</th>
-                <th>时间</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r, i) => (
-                <tr key={r.id}>
-                  <td className="adm-cell-num">{i + 1}</td>
-                  <td className="adm-cell-name">{r.name}</td>
-                  <td className="adm-cell-mono">{r.wechat}</td>
-                  <td className="adm-cell-mono">{r.xiaohongshu || '—'}</td>
-                  <td className="adm-cell-mono">{r.email}</td>
-                  <td>
-                    <span className={`adm-badge adm-badge-${r.python_level}`}>
-                      {PYTHON_LEVEL_MAP[r.python_level] || r.python_level}
-                    </span>
-                  </td>
-                  <td className="adm-cell-text">{r.motivation}</td>
-                  <td className="adm-cell-text">{r.questions || '—'}</td>
-                  <td className="adm-cell-time">
-                    {new Date(r.created_at).toLocaleString('zh-CN', {
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        grouped.map(([activity, items], idx) => (
+          <ActivityGroup
+            key={activity}
+            activity={activity}
+            items={items}
+            defaultOpen={idx === 0}
+          />
+        ))
       )}
     </div>
   )

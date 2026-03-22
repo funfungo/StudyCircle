@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getSupabase } from '../lib/supabase';
 import { TopBar } from './TopBar';
@@ -11,8 +11,8 @@ const CONTRACT_ITEMS = [
   { num: '二', text: '每周准时参加线上讨论会；如需请假，提前一天在群里说明。' },
   { num: '三', text: '讨论会上积极分享自己的收获或困惑，不做沉默的旁观者。' },
   { num: '四', text: '尊重每位成员，友善沟通，包容不同背景和水平的伙伴。' },
-  { num: '五', text: '报名时缴纳 200 元学习押金（通过闲鱼交易），完成全程共学后全额退还。' },
-  { num: '六', text: '连续两周无故缺席视为自动退出，押金不退还。' }
+  { num: '五', text: '报名时缴纳 200 元学习押金（通过闲鱼支付，完成全部学习后原路退还）。' },
+  { num: '六', text: '连续两周缺席视为自动退出，押金不予退还。' }
 ];
 
 const PYTHON_LEVELS = [
@@ -22,12 +22,19 @@ const PYTHON_LEVELS = [
   { value: 'advanced', label: '非常熟练，有工程经验' }
 ];
 
+const GIT_LEVELS = [
+  { value: 'none', label: '完全没用过' },
+  { value: 'basic', label: '用过基本的 clone / pull / push' },
+  { value: 'proficient', label: '熟练使用，了解分支和合并' }
+];
+
 const initialForm = {
   name: '',
   wechat: '',
   xiaohongshu: '',
   email: '',
   python_level: '',
+  git_level: '',
   motivation: '',
   questions: ''
 };
@@ -35,6 +42,11 @@ const initialForm = {
 export function RegistrationPage({ onToggleTheme }) {
   const [contractAccepted, setContractAccepted] = useState(false);
   const [contractConfirmed, setContractConfirmed] = useState(false);
+  const [showContractModal, _setShowContractModal] = useState(false);
+  const setShowContractModal = useCallback((open) => {
+    _setShowContractModal(open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }, []);
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -55,11 +67,13 @@ export function RegistrationPage({ onToggleTheme }) {
         .from('registrations')
         .insert([
           {
+            activity: defaultSiteData.topBar.title,
             name: form.name.trim(),
             wechat: form.wechat.trim(),
             xiaohongshu: form.xiaohongshu.trim(),
             email: form.email.trim(),
             python_level: form.python_level,
+            git_level: form.git_level,
             motivation: form.motivation.trim(),
             questions: form.questions.trim() || null,
             created_at: new Date().toISOString()
@@ -101,7 +115,6 @@ export function RegistrationPage({ onToggleTheme }) {
         ) : !contractAccepted ? (
           <>
             <header className="reg-header">
-
               <span className="reg-eyebrow">· 共学契约 ·</span>
               <h1 className="reg-title">在报名之前</h1>
               <p className="reg-subtitle">请认真阅读以下契约，这是我们对彼此的承诺。</p>
@@ -217,6 +230,28 @@ export function RegistrationPage({ onToggleTheme }) {
               </div>
 
               <div className="reg-field">
+                <label className="reg-label">
+                  Git 使用经验 <span className="reg-required">*</span>
+                </label>
+                <div className="reg-radio-group">
+                  {GIT_LEVELS.map((level) => (
+                    <label key={level.value} className="reg-radio-label">
+                      <input
+                        type="radio"
+                        name="git_level"
+                        value={level.value}
+                        checked={form.git_level === level.value}
+                        onChange={handleChange}
+                        required
+                      />
+                      <span className="reg-radio-indicator" />
+                      <span className="reg-radio-text">{level.label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div className="reg-field">
                 <label className="reg-label" htmlFor="reg-motivation">
                   为什么想参加？<span className="reg-required">*</span>
                 </label>
@@ -256,7 +291,7 @@ export function RegistrationPage({ onToggleTheme }) {
                 <span className="reg-confirm-check" />
                 <span className="reg-confirm-text">
                   我再次确认已阅读并同意
-                  <button type="button" className="reg-confirm-link" onClick={() => setContractAccepted(false)}>
+                  <button type="button" className="reg-confirm-link" onClick={() => setShowContractModal(true)}>
                     共学契约
                   </button>
                 </span>
@@ -275,6 +310,38 @@ export function RegistrationPage({ onToggleTheme }) {
       </div>
 
       <Footer data={defaultSiteData.footer} />
+
+      {showContractModal && (
+        <div className="reg-modal-overlay" onClick={() => setShowContractModal(false)}>
+          <div className="reg-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="reg-modal-header">
+              <span className="reg-eyebrow">· 共学契约 ·</span>
+              <button
+                className="reg-modal-close"
+                onClick={() => setShowContractModal(false)}
+                aria-label="关闭"
+              >
+                ×
+              </button>
+            </div>
+            <div className="reg-modal-body">
+              <div className="reg-contract-list">
+                {CONTRACT_ITEMS.map((item) => (
+                  <div className="reg-contract-item" key={item.num}>
+                    <span className="reg-contract-num">{item.num}</span>
+                    <span className="reg-contract-text">{item.text}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="reg-modal-footer">
+              <button className="reg-btn" onClick={() => setShowContractModal(false)}>
+                我已知悉
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
