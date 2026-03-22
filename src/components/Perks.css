@@ -7,7 +7,7 @@
 
 .perks-section .section-label {
   font-family: var(--font-mono);
-  font-size: var(--text-xs);
+  font-size: var(--text-base);
   letter-spacing: var(--tracking-2xl);
   text-transform: uppercase;
   color: var(--color-chrome-muted);

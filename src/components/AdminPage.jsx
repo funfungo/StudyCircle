@@ -1,7 +1,9 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
+import { useState, useEffect, useCallback, useMemo, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { getSupabase } from '../lib/supabase'
 import './AdminPage.css'
+
+const COL_COUNT = 8
 
 const PYTHON_LEVEL_MAP = {
   none: '零基础',
@@ -14,6 +16,65 @@ const GIT_LEVEL_MAP = {
   none: '没用过',
   basic: '基本操作',
   proficient: '熟练使用',
+}
+
+function RegistrationRow({ r, index }) {
+  const [expanded, setExpanded] = useState(false)
+  const hasDetail = r.motivation || r.questions
+
+  return (
+    <Fragment>
+      <tr
+        className={`adm-row ${hasDetail ? 'adm-row-clickable' : ''}`}
+        data-expanded={expanded}
+        onClick={() => hasDetail && setExpanded(!expanded)}
+      >
+        <td className="adm-cell-num">{index + 1}</td>
+        <td className="adm-cell-name">{r.name}</td>
+        <td className="adm-cell-mono">{r.wechat}</td>
+        <td className="adm-cell-mono">{r.xiaohongshu || '—'}</td>
+        <td className="adm-cell-mono">{r.email}</td>
+        <td>
+          <span className={`adm-badge adm-badge-${r.python_level}`}>
+            {PYTHON_LEVEL_MAP[r.python_level] || r.python_level}
+          </span>
+        </td>
+        <td>
+          <span className={`adm-badge adm-badge-git-${r.git_level}`}>
+            {GIT_LEVEL_MAP[r.git_level] || r.git_level || '—'}
+          </span>
+        </td>
+        <td className="adm-cell-time">
+          {new Date(r.created_at).toLocaleString('zh-CN', {
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
+        </td>
+      </tr>
+      {expanded && (
+        <tr className="adm-detail-row">
+          <td colSpan={COL_COUNT}>
+            <div className="adm-detail">
+              {r.motivation && (
+                <div className="adm-detail-section">
+                  <span className="adm-detail-label">动机</span>
+                  <p className="adm-detail-body">{r.motivation}</p>
+                </div>
+              )}
+              {r.questions && (
+                <div className="adm-detail-section">
+                  <span className="adm-detail-label">补充</span>
+                  <p className="adm-detail-body">{r.questions}</p>
+                </div>
+              )}
+            </div>
+          </td>
+        </tr>
+      )}
+    </Fragment>
+  )
 }
 
 function ActivityGroup({ activity, items, defaultOpen }) {
@@ -39,40 +100,12 @@ function ActivityGroup({ activity, items, defaultOpen }) {
                 <th>邮箱</th>
                 <th>Python</th>
                 <th>Git</th>
-                <th>动机</th>
-                <th>补充</th>
                 <th>时间</th>
               </tr>
             </thead>
             <tbody>
               {items.map((r, i) => (
-                <tr key={r.id}>
-                  <td className="adm-cell-num">{i + 1}</td>
-                  <td className="adm-cell-name">{r.name}</td>
-                  <td className="adm-cell-mono">{r.wechat}</td>
-                  <td className="adm-cell-mono">{r.xiaohongshu || '—'}</td>
-                  <td className="adm-cell-mono">{r.email}</td>
-                  <td>
-                    <span className={`adm-badge adm-badge-${r.python_level}`}>
-                      {PYTHON_LEVEL_MAP[r.python_level] || r.python_level}
-                    </span>
-                  </td>
-                  <td>
-                    <span className={`adm-badge adm-badge-git-${r.git_level}`}>
-                      {GIT_LEVEL_MAP[r.git_level] || r.git_level || '—'}
-                    </span>
-                  </td>
-                  <td className="adm-cell-text">{r.motivation}</td>
-                  <td className="adm-cell-text">{r.questions || '—'}</td>
-                  <td className="adm-cell-time">
-                    {new Date(r.created_at).toLocaleString('zh-CN', {
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </td>
-                </tr>
+                <RegistrationRow key={r.id} r={r} index={i} />
               ))}
             </tbody>
           </table>

@@ -45,7 +45,7 @@
 
   /* ── Typography: Font Sizes ─────────────────── */
   --text-2xs:      9px;
-  --text-xs:       10px;
+  --text-base:       10px;
   --text-sm:       11px;
   --text-base:     12px;
   --text-md:       13px;
@@ -124,7 +124,7 @@
   --ease-anim:     0.6s ease both;
 
   /* ── Layout ─────────────────────────────────── */
-  --content-max-width:          780px;
+  --content-max-width:          1024px;
   --section-padding-x:          var(--space-10);
   --section-padding-x-mobile:   var(--space-6);
 
