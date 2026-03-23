@@ -30,6 +30,7 @@ const GIT_LEVELS = [
 
 const initialForm = {
   name: '',
+  wechat: '',
   xiaohongshu: '',
   email: '',
   python_level: '',
@@ -68,6 +69,7 @@ export function RegistrationPage({ onToggleTheme }) {
           {
             activity: defaultSiteData.topBar.title,
             name: form.name.trim(),
+            wechat: form.wechat.trim(),
             xiaohongshu: form.xiaohongshu.trim(),
             email: form.email.trim(),
             python_level: form.python_level,
@@ -104,7 +106,7 @@ export function RegistrationPage({ onToggleTheme }) {
             <div className="reg-success">
               <div className="reg-success-icon">✓</div>
               <h2 className="reg-success-title">报名成功</h2>
-              <p className="reg-success-text">感谢你的报名！我们会尽快联系你确认名额。</p>
+              <p className="reg-success-text">感谢你的报名！我们会通过微信联系你，请留意好友申请。</p>
               <button className="reg-btn" onClick={() => navigate('/')}>
                 返回首页
               </button>
@@ -153,6 +155,22 @@ export function RegistrationPage({ onToggleTheme }) {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="你希望我们怎么称呼你"
+                  required
+                />
+              </div>
+
+              <div className="reg-field">
+                <label className="reg-label" htmlFor="reg-wechat">
+                  微信号 <span className="reg-required">*</span>
+                </label>
+                <input
+                  id="reg-wechat"
+                  className="reg-input"
+                  type="text"
+                  name="wechat"
+                  value={form.wechat}
+                  onChange={handleChange}
+                  placeholder="用于拉群和后续联系"
                   required
                 />
               </div>

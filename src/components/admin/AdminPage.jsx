@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { getSupabase } from '../../lib/supabase'
 import './AdminPage.css'
 
-const COL_COUNT = 7
+const COL_COUNT = 8
 
 const PYTHON_LEVEL_MAP = {
   none: '零基础',
@@ -31,6 +31,7 @@ function RegistrationRow({ r, index }) {
       >
         <td className="adm-cell-num">{index + 1}</td>
         <td className="adm-cell-name">{r.name}</td>
+        <td className="adm-cell-mono">{r.wechat}</td>
         <td className="adm-cell-mono">{r.xiaohongshu || '—'}</td>
         <td className="adm-cell-mono">{r.email}</td>
         <td>
@@ -94,6 +95,7 @@ function ActivityGroup({ activity, items, defaultOpen }) {
               <tr>
                 <th>#</th>
                 <th>姓名</th>
+                <th>微信</th>
                 <th>小红书</th>
                 <th>邮箱</th>
                 <th>Python</th>
