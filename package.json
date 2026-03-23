@@ -10,7 +10,7 @@
     "screenshot": "node scripts/screenshot.mjs",
     "screenshot:pages": "SCREENSHOT_PAGES=1 node scripts/screenshot.mjs",
     "deploy": "vite build && vercel --prod",
-    "migrate": "node scripts/migrate.mjs",
+    "migrate": "node --env-file=.env scripts/migrate.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepare": "husky"

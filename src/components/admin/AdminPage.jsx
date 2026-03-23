@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { getSupabase } from '../../lib/supabase'
 import './AdminPage.css'
 
-const COL_COUNT = 8
+const COL_COUNT = 9
 
 const PYTHON_LEVEL_MAP = {
   none: '零基础',
@@ -18,9 +18,25 @@ const GIT_LEVEL_MAP = {
   proficient: '熟练使用',
 }
 
-function RegistrationRow({ r, index }) {
+const STATUS_CYCLE = [null, 'confirmed', 'pending']
+const STATUS_LABEL = { confirmed: '已确认', pending: '待定' }
+
+function RegistrationRow({ r, index, onUpdateStatus }) {
   const [expanded, setExpanded] = useState(false)
+  const [updating, setUpdating] = useState(false)
   const hasDetail = r.motivation || r.questions
+
+  const handleStatusClick = async (e) => {
+    e.stopPropagation()
+    const curIdx = STATUS_CYCLE.indexOf(r.confirmed)
+    const next = STATUS_CYCLE[(curIdx + 1) % STATUS_CYCLE.length]
+    setUpdating(true)
+    try {
+      await onUpdateStatus(r.id, next)
+    } finally {
+      setUpdating(false)
+    }
+  }
 
   return (
     <Fragment>
@@ -29,6 +45,15 @@ function RegistrationRow({ r, index }) {
         data-expanded={expanded}
         onClick={() => hasDetail && setExpanded(!expanded)}
       >
+        <td className="adm-cell-confirm">
+          <button
+            className={`adm-status-btn ${r.confirmed ? `adm-status-${r.confirmed}` : ''}`}
+            onClick={handleStatusClick}
+            disabled={updating}
+          >
+            {updating ? '…' : STATUS_LABEL[r.confirmed] || '确认'}
+          </button>
+        </td>
         <td className="adm-cell-num">{index + 1}</td>
         <td className="adm-cell-name">{r.name}</td>
         <td className="adm-cell-mono">{r.wechat}</td>
@@ -77,7 +102,7 @@ function RegistrationRow({ r, index }) {
   )
 }
 
-function ActivityGroup({ activity, items, defaultOpen }) {
+function ActivityGroup({ activity, items, defaultOpen, onUpdateStatus }) {
   const [open, setOpen] = useState(defaultOpen)
 
   return (
@@ -93,6 +118,7 @@ function ActivityGroup({ activity, items, defaultOpen }) {
           <table className="adm-table">
             <thead>
               <tr>
+                <th>状态</th>
                 <th>#</th>
                 <th>姓名</th>
                 <th>微信</th>
@@ -105,7 +131,7 @@ function ActivityGroup({ activity, items, defaultOpen }) {
             </thead>
             <tbody>
               {items.map((r, i) => (
-                <RegistrationRow key={r.id} r={r} index={i} />
+                <RegistrationRow key={r.id} r={r} index={i} onUpdateStatus={onUpdateStatus} />
               ))}
             </tbody>
           </table>
@@ -169,6 +195,19 @@ export function AdminPage() {
   const handleLogout = async () => {
     await getSupabase().auth.signOut()
   }
+
+  const handleUpdateStatus = useCallback(async (id, status) => {
+    const { error: updateErr } = await getSupabase()
+      .from('registrations')
+      .update({ confirmed: status })
+      .eq('id', id)
+
+    if (updateErr) {
+      setError(updateErr.message || '更新失败')
+      return
+    }
+    setRows(prev => prev.map(row => row.id === id ? { ...row, confirmed: status } : row))
+  }, [])
 
   const fetchData = useCallback(async () => {
     setLoading(true)
@@ -275,6 +314,7 @@ export function AdminPage() {
             activity={activity}
             items={items}
             defaultOpen={idx === 0}
+            onUpdateStatus={handleUpdateStatus}
           />
         ))
       )}
