@@ -10,12 +10,14 @@
     "screenshot": "node scripts/screenshot.mjs",
     "screenshot:pages": "SCREENSHOT_PAGES=1 node scripts/screenshot.mjs",
     "deploy": "vite build && vercel --prod",
-    "migrate": "node scripts/migrate.mjs",
+    "deploy:cloudbase": "bash scripts/deploy-cloudbase.sh",
+    "migrate": "node --env-file=.env scripts/migrate.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@cloudbase/node-sdk": "^3.18.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
@@ -27,6 +29,7 @@
     "vitest": "^4.1.0"
   },
   "dependencies": {
+    "@cloudbase/js-sdk": "^2.27.1",
     "@fontsource-variable/noto-sans-sc": "^5.2.10",
     "@fontsource-variable/noto-serif-sc": "^5.2.10",
     "@fontsource/space-mono": "^5.2.9",

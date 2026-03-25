@@ -3,9 +3,9 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { RegistrationPage } from './RegistrationPage'
-import { mockInsert } from '../../lib/__mocks__/supabase'
+import { createRegistration } from '../../lib/__mocks__/registrations'
 
-vi.mock('../../lib/supabase')
+vi.mock('../../lib/registrations')
 
 function renderPage() {
   return render(
@@ -21,6 +21,7 @@ async function acceptContract(user) {
 
 async function fillForm(user) {
   await user.type(screen.getByLabelText(/姓名/), '张三')
+  await user.type(screen.getByLabelText(/微信号/), 'zhangsan_wx')
   await user.type(screen.getByLabelText(/小红书号/), 'zhangsan_xhs')
   await user.type(screen.getByLabelText(/邮箱/), 'test@example.com')
   await user.click(screen.getByLabelText(/零基础，但愿意学/))
@@ -56,7 +57,7 @@ describe('RegistrationPage', () => {
   })
 
   it('填写表单并成功提交', async () => {
-    mockInsert.mockResolvedValueOnce({ error: null })
+    createRegistration.mockResolvedValueOnce()
     const user = userEvent.setup()
     renderPage()
     await acceptContract(user)
@@ -70,7 +71,7 @@ describe('RegistrationPage', () => {
   })
 
   it('提交失败显示错误信息', async () => {
-    mockInsert.mockResolvedValueOnce({ error: { message: '网络错误' } })
+    createRegistration.mockRejectedValueOnce(new Error('网络错误'))
     const user = userEvent.setup()
     renderPage()
     await acceptContract(user)
@@ -84,9 +85,9 @@ describe('RegistrationPage', () => {
   })
 
   it('提交中按钮禁用且文案变化', async () => {
-    let resolveInsert
-    mockInsert.mockReturnValueOnce(
-      new Promise((resolve) => { resolveInsert = resolve }),
+    let resolveCreate
+    createRegistration.mockReturnValueOnce(
+      new Promise((resolve) => { resolveCreate = resolve }),
     )
     const user = userEvent.setup()
     renderPage()
@@ -99,6 +100,6 @@ describe('RegistrationPage', () => {
       expect(screen.getByRole('button', { name: '提交中…' })).toBeDisabled()
     })
 
-    resolveInsert({ error: null })
+    resolveCreate()
   })
 })

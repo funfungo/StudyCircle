@@ -1,9 +1,12 @@
 import { useState, useEffect, useCallback, useMemo, Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import { getSupabase } from '../../lib/supabase'
+import { getAuth, provider } from '../../lib/db'
+import { getRegistrations, updateRegistrationStatus } from '../../lib/registrations'
 import './AdminPage.css'
 
-const COL_COUNT = 7
+const SESSION_KEY = 'sc_admin_authed'
+
+const COL_COUNT = 9
 
 const PYTHON_LEVEL_MAP = {
   none: '零基础',
@@ -18,9 +21,25 @@ const GIT_LEVEL_MAP = {
   proficient: '熟练使用',
 }
 
-function RegistrationRow({ r, index }) {
+const STATUS_CYCLE = [null, 'confirmed', 'pending']
+const STATUS_LABEL = { confirmed: '已确认', pending: '待定' }
+
+function RegistrationRow({ r, index, onUpdateStatus }) {
   const [expanded, setExpanded] = useState(false)
+  const [updating, setUpdating] = useState(false)
   const hasDetail = r.motivation || r.questions
+
+  const handleStatusClick = async (e) => {
+    e.stopPropagation()
+    const curIdx = STATUS_CYCLE.indexOf(r.confirmed)
+    const next = STATUS_CYCLE[(curIdx + 1) % STATUS_CYCLE.length]
+    setUpdating(true)
+    try {
+      await onUpdateStatus(r.id, next)
+    } finally {
+      setUpdating(false)
+    }
+  }
 
   return (
     <Fragment>
@@ -29,8 +48,18 @@ function RegistrationRow({ r, index }) {
         data-expanded={expanded}
         onClick={() => hasDetail && setExpanded(!expanded)}
       >
+        <td className="adm-cell-confirm">
+          <button
+            className={`adm-status-btn ${r.confirmed ? `adm-status-${r.confirmed}` : ''}`}
+            onClick={handleStatusClick}
+            disabled={updating}
+          >
+            {updating ? '…' : STATUS_LABEL[r.confirmed] || '确认'}
+          </button>
+        </td>
         <td className="adm-cell-num">{index + 1}</td>
         <td className="adm-cell-name">{r.name}</td>
+        <td className="adm-cell-mono">{r.wechat}</td>
         <td className="adm-cell-mono">{r.xiaohongshu || '—'}</td>
         <td className="adm-cell-mono">{r.email}</td>
         <td>
@@ -76,7 +105,7 @@ function RegistrationRow({ r, index }) {
   )
 }
 
-function ActivityGroup({ activity, items, defaultOpen }) {
+function ActivityGroup({ activity, items, defaultOpen, onUpdateStatus }) {
   const [open, setOpen] = useState(defaultOpen)
 
   return (
@@ -92,8 +121,10 @@ function ActivityGroup({ activity, items, defaultOpen }) {
           <table className="adm-table">
             <thead>
               <tr>
+                <th>状态</th>
                 <th>#</th>
                 <th>姓名</th>
+                <th>微信</th>
                 <th>小红书</th>
                 <th>邮箱</th>
                 <th>Python</th>
@@ -103,7 +134,7 @@ function ActivityGroup({ activity, items, defaultOpen }) {
             </thead>
             <tbody>
               {items.map((r, i) => (
-                <RegistrationRow key={r.id} r={r} index={i} />
+                <RegistrationRow key={r.id} r={r} index={i} onUpdateStatus={onUpdateStatus} />
               ))}
             </tbody>
           </table>
@@ -114,8 +145,11 @@ function ActivityGroup({ activity, items, defaultOpen }) {
 }
 
 export function AdminPage() {
-  const [session, setSession] = useState(null)
-  const [checking, setChecking] = useState(true)
+  const [authed, setAuthed] = useState(() => {
+    if ((provider === 'supabase')) return null
+    return sessionStorage.getItem(SESSION_KEY) === '1'
+  })
+  const [checking, setChecking] = useState((provider === 'supabase'))
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loginError, setLoginError] = useState('')
@@ -136,49 +170,69 @@ export function AdminPage() {
   }, [rows])
 
   useEffect(() => {
-    const supabase = getSupabase()
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s)
+    if (!(provider === 'supabase')) return
+    const auth = getAuth()
+    auth.getSession().then(({ data: { session: s } }) => {
+      setAuthed(s)
       setChecking(false)
     })
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, s) => setSession(s)
+    const { data: { subscription } } = auth.onAuthStateChange(
+      (_event, s) => setAuthed(s)
     )
     return () => subscription.unsubscribe()
   }, [])
 
   const handleLogin = async (e) => {
     e.preventDefault()
-    setLoginLoading(true)
-    setLoginError('')
-    try {
-      const { error: err } = await getSupabase().auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      })
-      if (err) throw err
-    } catch (err) {
-      setLoginError(err.message || '登录失败')
-    } finally {
-      setLoginLoading(false)
+    if ((provider === 'supabase')) {
+      setLoginLoading(true)
+      setLoginError('')
+      try {
+        const { error: err } = await getAuth().signInWithPassword({
+          email: email.trim(),
+          password,
+        })
+        if (err) throw err
+      } catch (err) {
+        setLoginError(err.message || '登录失败')
+      } finally {
+        setLoginLoading(false)
+      }
+    } else {
+      if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
+        sessionStorage.setItem(SESSION_KEY, '1')
+        setAuthed(true)
+        setLoginError('')
+      } else {
+        setLoginError('密码错误')
+      }
     }
   }
 
   const handleLogout = async () => {
-    await getSupabase().auth.signOut()
+    if ((provider === 'supabase')) {
+      await getAuth().signOut()
+    } else {
+      sessionStorage.removeItem(SESSION_KEY)
+      setAuthed(false)
+    }
   }
+
+  const handleUpdateStatus = useCallback(async (id, status) => {
+    try {
+      await updateRegistrationStatus(id, status)
+      setRows(prev => prev.map(row => row.id === id ? { ...row, confirmed: status } : row))
+    } catch (err) {
+      setError(err.message || '更新失败')
+    }
+  }, [])
 
   const fetchData = useCallback(async () => {
     setLoading(true)
     setError('')
     try {
-      const { data, error: fetchErr } = await getSupabase()
-        .from('registrations')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (fetchErr) throw fetchErr
-      setRows(data || [])
+      const data = await getRegistrations()
+      setRows(data)
     } catch (err) {
       setError(err.message || '加载失败')
     } finally {
@@ -187,8 +241,8 @@ export function AdminPage() {
   }, [])
 
   useEffect(() => {
-    if (session) fetchData()
-  }, [session, fetchData])
+    if (authed) fetchData()
+  }, [authed, fetchData])
 
   if (checking) {
     return (
@@ -198,28 +252,33 @@ export function AdminPage() {
     )
   }
 
-  if (!session) {
+  if (!authed) {
     return (
       <div className="adm-page">
         <div className="adm-login">
           <h1 className="adm-login-title">管理后台</h1>
-          <p className="adm-login-hint">使用 Supabase 管理员账号登录</p>
+          <p className="adm-login-hint">
+            {(provider === 'supabase') ? '使用管理员账号登录' : '请输入管理密码'}
+          </p>
           <form onSubmit={handleLogin}>
-            <input
-              className="adm-pw-input"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="邮箱"
-              autoFocus
-              required
-            />
+            {(provider === 'supabase') && (
+              <input
+                className="adm-pw-input"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="邮箱"
+                autoFocus
+                required
+              />
+            )}
             <input
               className="adm-pw-input"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="密码"
+              autoFocus={!(provider === 'supabase')}
               required
             />
             {loginError && (
@@ -273,6 +332,7 @@ export function AdminPage() {
             activity={activity}
             items={items}
             defaultOpen={idx === 0}
+            onUpdateStatus={handleUpdateStatus}
           />
         ))
       )}

@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import '@fontsource-variable/noto-sans-sc'
 import '@fontsource-variable/noto-serif-sc'
 import '@fontsource/space-mono/400.css'
@@ -8,7 +8,7 @@ import './style.css'
 import { App } from './App'
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
+  <HashRouter>
     <App />
-  </BrowserRouter>
+  </HashRouter>
 )
