@@ -5,6 +5,7 @@ import { MobileStudyCirclePage } from './components/landing/MobileStudyCirclePag
 import { RegistrationPage } from './components/registration/RegistrationPage'
 import { AdminPage } from './components/admin/AdminPage'
 import { ShowNotesPage } from './components/show-notes/ShowNotesPage'
+import { TicketPage } from './components/ticket/TicketPage'
 import { MobileShowNotesPage } from './components/show-notes/MobileShowNotesPage'
 import { DevTools } from './dev/DevTools'
 import { useTheme } from './hooks/useTheme'
@@ -77,6 +78,7 @@ export function App() {
         <Route path="/:seasonId" element={<SeasonPage onToggleTheme={cycleTheme} />} />
         <Route path="/register" element={<RegistrationPage onToggleTheme={cycleTheme} />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/ticket" element={<TicketPage />} />
         <Route path="/show-notes" element={<ShowNotesRoute onToggleTheme={cycleTheme} />} />
         <Route path="/show-notes/:id" element={<ShowNotesRoute onToggleTheme={cycleTheme} />} />
       </Routes>
