@@ -330,6 +330,10 @@
 
 .ticket-meta-item {
   padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-right: 1px solid rgba(15, 14, 12, 0.12);
   text-align: center;
 }
@@ -344,6 +348,9 @@
   font-weight: 700;
   line-height: 1;
   margin-bottom: 3px;
+}
+.ticket-meta-val-time{
+  font-size: 13px;
 }
 
 .ticket-meta-val sup {

@@ -237,10 +237,11 @@ export function TicketPage() {
                   </div>
                   <div className="ticket-meta-item">
                     <div className="ticket-meta-val" style={{ fontSize: '10px' }}>2026.04.10</div>
+                    <div className='ticket-meta-val-time'>20:30-21:30</div>
                     <div className="ticket-meta-key">开营日期</div>
                   </div>
                   <div className="ticket-meta-item">
-                    <div className="ticket-meta-val">线上</div>
+                    <div className="ticket-meta-val">线上会议</div>
                     <div className="ticket-meta-key">形式</div>
                   </div>
                 </div>
