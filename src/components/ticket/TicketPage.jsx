@@ -63,19 +63,44 @@ export function TicketPage() {
 
   const handleDownload = useCallback(async () => {
     const card = ticketCardRef.current
-    if (!card || downloading) return
+    const wrap = wrapRef.current
+    if (!card || !wrap || downloading) return
 
     setDownloading(true)
+
+    const savedCard = {
+      transition: card.style.transition,
+      transform: card.style.transform,
+      overflow: card.style.overflow,
+    }
+    const savedWrap = {
+      filter: wrap.style.filter,
+      animation: wrap.style.animation,
+    }
+
     try {
       card.style.transition = 'none'
       card.style.transform = 'none'
+      card.style.overflow = 'hidden'
+      wrap.style.filter = 'none'
+      wrap.style.animation = 'none'
+
+      const grain = card.querySelector('.ticket-grain')
+      const shine = card.querySelector('.ticket-shine')
+      if (grain) grain.style.display = 'none'
+      if (shine) shine.style.display = 'none'
+
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))
 
       const canvas = await html2canvas(card, {
         scale: 3,
-        backgroundColor: null,
+        backgroundColor: '#1a1814',
         useCORS: true,
         logging: false,
       })
+
+      if (grain) grain.style.display = ''
+      if (shine) shine.style.display = ''
 
       const link = document.createElement('a')
       link.download = `LLM共学门票-${displayName}.png`
@@ -84,6 +109,11 @@ export function TicketPage() {
     } catch {
       alert('下载失败，请尝试截图保存')
     } finally {
+      card.style.transition = savedCard.transition
+      card.style.transform = savedCard.transform
+      card.style.overflow = savedCard.overflow
+      wrap.style.filter = savedWrap.filter
+      wrap.style.animation = savedWrap.animation
       setDownloading(false)
     }
   }, [downloading, displayName])

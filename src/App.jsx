@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { Routes, Route, Navigate, useSearchParams, useParams, useLocation } from 'react-router-dom'
 import { StudyCirclePage } from './components/landing/StudyCirclePage'
 import { MobileStudyCirclePage } from './components/landing/MobileStudyCirclePage'
@@ -7,9 +7,12 @@ import { AdminPage } from './components/admin/AdminPage'
 import { ShowNotesPage } from './components/show-notes/ShowNotesPage'
 import { TicketPage } from './components/ticket/TicketPage'
 import { MobileShowNotesPage } from './components/show-notes/MobileShowNotesPage'
-import { DevTools } from './dev/DevTools'
 import { useTheme } from './hooks/useTheme'
 import { siteDataMap, latestSeasonId, showNotesMap, latestEpisodeId } from './data'
+
+const DevTools = import.meta.env.DEV
+  ? lazy(() => import('./dev/DevTools').then(m => ({ default: m.DevTools })))
+  : null
 
 function dismissLoading() {
   const el = document.getElementById('loading-screen')
@@ -82,13 +85,15 @@ export function App() {
         <Route path="/show-notes" element={<ShowNotesRoute onToggleTheme={cycleTheme} />} />
         <Route path="/show-notes/:id" element={<ShowNotesRoute onToggleTheme={cycleTheme} />} />
       </Routes>
-      {showDevTools && (
-        <DevTools
-          theme={theme}
-          themeKeys={themeKeys}
-          themeNames={themeNames}
-          onSwitchTheme={switchTheme}
-        />
+      {showDevTools && DevTools && (
+        <Suspense fallback={null}>
+          <DevTools
+            theme={theme}
+            themeKeys={themeKeys}
+            themeNames={themeNames}
+            onSwitchTheme={switchTheme}
+          />
+        </Suspense>
       )}
     </>
   )
