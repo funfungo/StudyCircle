@@ -7,11 +7,11 @@ BUILD_DIR="dist"
 echo "🔨 构建项目..."
 pnpm build
 
+echo "🗑️  删除远端旧 index.html（避免 CDN 缓存）..."
+tcb hosting delete index.html -e "$ENV_ID" 2>/dev/null || true
+
 echo "🚀 部署到 CloudBase 静态托管 (${ENV_ID})..."
 tcb hosting deploy "$BUILD_DIR" -e "$ENV_ID"
-
-echo "🧹 刷新 CDN 缓存..."
-tcb hosting cache-clear -e "$ENV_ID" || echo "⚠️  缓存刷新失败，请手动在控制台刷新"
 
 echo "✅ 部署完成!"
 echo "   环境: ${ENV_ID}"
