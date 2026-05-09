@@ -49,6 +49,7 @@ export const showNotesMap = {
   ep03,
   ep04,
   ep05,
+  ep06,
 }
 
 /** 默认显示最新一期（map 中最后一个 key） */
